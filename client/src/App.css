@@ -1,0 +1,30 @@
+:root{
+    --mainBlue: #2a2a72;
+    --lightBlue: #009ffd;
+    --backLightBlue: #99daff;
+    --mainWhite: #f3f3f3;
+    --mainDark: #232525;
+    --mainYellow: #ffa400;
+  }
+
+  body {
+    font-family: 'Impact' !important;
+    background: var(--backLightBlue) !important;
+    color: var(--mainDark) !important;
+    
+  }
+  
+  .text-title {
+    font-family: 'Bonbon' !important; 
+    letter-spacing: 0.4rem;
+    text-transform: uppercase;
+  }
+  
+  .text-blue {
+    color: var(--mainBlue) !important
+  }
+  
+  .text-bright {
+    color: var(--lightBlue) !important
+  }
+  
