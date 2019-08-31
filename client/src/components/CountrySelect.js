@@ -1,16 +1,35 @@
 import React, { Component } from 'react'
+import { throws } from 'assert';
 
 class CountrySelect extends Component {
+
+    constructor(props){
+        super(props)
+        this.state = {
+          result: ''
+        };
+      }
+      
+      handleSelectChange = (event) => {
+        this.setState({
+            result: event.target.value
+        })
+
+        this.props.call(event.target.value)
+      }
+
     render() {
         return (
             <div>
         
-            <select 
+            <select onChange={this.handleSelectChange}
                 id = "country" 
-                name = "country" 
+                name = "country"                
                 class = "form-control"
                 placeholder = "Country"
-            >
+            > 
+                <option value="" disabled selected>Select your option</option>
+
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Åland Islands">Åland Islands</option>
                 <option value="Albania">Albania</option>

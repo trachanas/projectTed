@@ -46,6 +46,11 @@ class Register extends Component {
         }
     }
 
+    callBack = (countrySelect) => {
+        this.setState({
+            country: countrySelect
+        })
+    }
     onChange = e => {
         this.setState({[e.target.id] : e.target.value});
     };
@@ -198,18 +203,7 @@ style = {decSignForm}>
                 <label><strong>Address</strong></label>
 
                 <Form.Row>
-                    <Col>
-                        <Form.Group>
-                        <Form.Label>Country</Form.Label>
-                        <Form.Control 
-                                    name = "country"
-                                    value = {this.state.country}
-                                    onChange = {this.onChange}
-                                    id = "country"
-                                    type = "text"
-                                    placeholder="Number"/>
-                        </Form.Group>
-                    </Col>
+                  
 
                     <Col>
                         <Form.Group>
@@ -236,6 +230,13 @@ style = {decSignForm}>
                                     placeholder="Zip Code"/>
                         </Form.Group>
                     </Col>
+                </Form.Row>
+
+                <Form.Row>
+                <Form.Group>
+                        <Form.Label>Country</Form.Label>
+                                <CountrySelect call = {this.callBack}/>
+                        </Form.Group>
                 </Form.Row>
                 
                 <label><strong>Payment Information</strong></label>
@@ -287,6 +288,7 @@ style = {decSignForm}>
                 </Row>
    
             </Form>
+            
             </div>
         )
     }
