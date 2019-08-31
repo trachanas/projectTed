@@ -5,6 +5,8 @@ import Navbar from './components/layout/Navbar.js'
 import Login from './components/Login.js'
 import Register from './components/Register.js'
 import WelcomePage from './components/WelcomePage.js'
+import errorPage from './components/errorPage.js'
+
 import "./App.css";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
@@ -23,6 +25,7 @@ class App extends Component {
             <Route exact path = "/welcomePage" component = {WelcomePage}/>
             <Route exact path = "/login" component = {Login}/>
             <Route exact path = "/register" component = {Register}/>
+            <Route component = {errorPage} />
           </Switch>
         </React.Fragment>
       </Provider>   

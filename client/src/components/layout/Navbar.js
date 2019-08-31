@@ -11,7 +11,8 @@ export class Navbar extends Component {
             <div>
                 <NavWrap className = "navbar navbar-expand-sm navbar-dark-px-sm-5">
                 <ul class = "nav-item">
-                <a class = "nav-link"> <Link to="/welcomePage">
+                <a class = "nav-link"> 
+                    <Link to="/welcomePage" >
                     <img
                         src = {cart}
                         alt = "Homepage"
@@ -26,19 +27,7 @@ export class Navbar extends Component {
                         Login
                     </RegisterButton>
                 </Link>
-  {/* <li class="nav-item">
-    <a class="nav-link active" href="#">Active</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled" href="#">Disabled</a>
-  </li>
-</ul> */}
+ 
 
                 <Link to = "/register" >
                     <RegisterButton>
@@ -88,7 +77,6 @@ const NavWrap = styled.nav`
     }
 `
 const RegisterButton = styled.button`
-    font-family: Courier;
     font-size: 1.3rem;
     background: transparent;
     border: 0.05rem solid;

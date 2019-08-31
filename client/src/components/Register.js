@@ -203,7 +203,6 @@ style = {decSignForm}>
                 <label><strong>Address</strong></label>
 
                 <Form.Row>
-                  
 
                     <Col>
                         <Form.Group>
@@ -233,10 +232,15 @@ style = {decSignForm}>
                 </Form.Row>
 
                 <Form.Row>
+                <Col>
+
                 <Form.Group>
                         <Form.Label>Country</Form.Label>
                                 <CountrySelect call = {this.callBack}/>
+
                         </Form.Group>
+                        </Col>
+
                 </Form.Row>
                 
                 <label><strong>Payment Information</strong></label>

@@ -6,13 +6,25 @@
     --mainDark: #232525;
     --mainYellow: #ffa400;
   }
-
+  .decErrorPage {    
+    font-size: 120px;
+    font-family: 'Permanent Marker', cursive;
+    font-family: 'Bungee', cursive;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    margin-top: 122px;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  }
   body {
     font-family: 'Manjari', sans-serif;
     background: var(--backLightBlue) !important;
     color: var(--mainDark) !important;
     
   }
+
+ 
   
   .text-title {
     font-family: 'Bonbon' !important; 
