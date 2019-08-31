@@ -41,7 +41,7 @@ User.findOne({ email: req.body.email }).then(user => {
         vatNumber: req.body.vatNumber,
         creditCardNumber: req.body.creditCardNumber
       });
-      
+
 // Hash password before saving in database
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -58,6 +58,9 @@ User.findOne({ email: req.body.email }).then(user => {
   });
 });
 
+router.get('/all', (req, res) => {
+    User.find().then((users) => res.json(users));
+});
 
 // @route POST api/users/login
 // @desc Login user and return JWT token
@@ -69,13 +72,13 @@ router.post("/login", (req, res) => {
     if (!isValid) {
       return res.status(400).json(errors);
     }
-  const email = req.body.email;
+  const username = req.body.username;
     const password = req.body.password;
   // Find user by email
-    User.findOne({ email }).then(user => {
+    User.findOne({ username }).then(user => {
       // Check if user exists
       if (!user) {
-        return res.status(404).json({ emailnotfound: "Email not found" });
+        return res.status(404).json({ usernamenotfound: "Email not found" });
       }
   // Check password
       bcrypt.compare(password, user.password).then(isMatch => {
@@ -84,7 +87,8 @@ router.post("/login", (req, res) => {
           // Create JWT Payload
           const payload = {
             id: user.id,
-            name: user.name
+            name: user.name,
+            isAdmin: user.isAdmin,
           };
   // Sign token
           jwt.sign(
@@ -96,7 +100,7 @@ router.post("/login", (req, res) => {
             (err, token) => {
               res.json({
                 success: true,
-                token: "Bearer " + token
+                token: "Bearer " + token,
               });
             }
           );

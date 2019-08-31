@@ -1,12 +1,14 @@
 import {
     SET_CURRENT_USER,
-    USER_LOADING
+    USER_LOADING,
+    SET_ALL_USERS,
   } from "../actions/types";
   const isEmpty = require("is-empty");
   const initialState = {
     isAuthenticated: false,
     user: {},
-    loading: false
+    loading: false,
+    users: [],
   };
   export default function(state = initialState, action) {
     switch (action.type) {
@@ -20,6 +22,11 @@ import {
         return {
           ...state,
           loading: true
+        };
+      case SET_ALL_USERS:
+        return {
+          ...state,
+          users: action.users,
         };
       default:
         return state;

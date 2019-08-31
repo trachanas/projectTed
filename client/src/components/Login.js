@@ -14,11 +14,11 @@ class Login extends Component {
             username : "",
             password : "",
             errors: {}
-        }    
+        }
 
         this.initialState = this.state;
     }
-       
+
     componentDidMount() {
         // If logged in and user navigates to Login page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
@@ -27,8 +27,11 @@ class Login extends Component {
       }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.auth.isAuthenticated) {
-          this.props.history.push("/dashboard"); // push user to dashboard when they login
+        if (nextProps.auth.isAuthenticated && nextProps.auth.user.isAdmin) {
+          this.props.history.push("/admin");
+        }
+        else if (nextProps.auth.isAuthenticated) {
+            this.props.history.push("/dashboard");
         }
     if (nextProps.errors) {
           this.setState({
@@ -36,23 +39,26 @@ class Login extends Component {
           });
         }
       }
-    
+
     onChange = e => {
       this.setState({[e.target.id] : e.target.value});
     };
 
     onSubmit = e => {
       e.preventDefault();
+
       const userData = {
-        email: this.state.email,
+        username: this.state.username,
         password: this.state.password
       };
+
       this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
     }
-        
+
     resetForm = () => {
       this.setState(this.initialState);
     }
+
     render() {
 
         const { errors } = this.state;
@@ -63,13 +69,13 @@ class Login extends Component {
 
                 <Form.Group>
                     <Form.Label><strong>Username</strong></Form.Label>
-                        <Form.Control 
+                        <Form.Control
                             name = "username"
                             value = {this.state.username}
                             onChange = {this.onChange}
                             id = "username"
-                            type="username" 
-                            placeholder="Username" 
+                            type="username"
+                            placeholder="Username"
                         />
                 </Form.Group>
                 <Form.Group >
@@ -79,14 +85,14 @@ class Login extends Component {
                         value = {this.state.password}
                         onChange = {this.onChange}
                         id = "password"
-                        type = "password" 
-                        placeholder="Password" 
+                        type = "password"
+                        placeholder="Password"
                     />
                     <Form.Text className="text-muted">
                         Password must contain at least 6 characters, one digit and one special character!
                     </Form.Text>
                 </Form.Group>
-               
+
                 <Row>
                     <Col>
                         <Button
@@ -96,14 +102,14 @@ class Login extends Component {
                         </Button>
                     </Col>
                     <Col>
-                    <Button 
-                        onClick ={this.resetForm} 
+                    <Button
+                        onClick ={this.resetForm}
                         variant="secondary">
                         Reset
-                    </Button> 
+                    </Button>
                     </Col>
                 </Row>
-   
+
             </Form>
             </div>
         )
@@ -140,7 +146,7 @@ Login.propTypes = {
   };
   const mapStateToProps = state => ({
     auth: state.auth,
-    errors: state.errors
+    errors: state.errors,
   });
   export default connect(
     mapStateToProps,

@@ -1,3 +1,5 @@
 export const GET_ERRORS = "GET_ERRORS";
 export const USER_LOADING = "USER_LOADING";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
+export const FETCH_ALL_USERS = "FETCH_ALL_USERS";
+export const SET_ALL_USERS = "SET_ALL_USERS";
