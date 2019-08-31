@@ -166,10 +166,38 @@ style = {decSignForm}>
                 </Form.Row>
 
                 <label><strong>Contact Information</strong></label>
-
-            
                 <Form.Row>
-                    
+                    <Col>
+                        <Form.Group>
+                        <Form.Label>Telephone Number</Form.Label>
+                        <Form.Control 
+                                    name = "telephoneNumber"
+                                    value = {this.state.telephoneNumber}
+                                    onChange = {this.onChange}
+                                    id = "telephoneNumber"
+                                    type = "text"
+                                    placeholder="Phone Number"/>
+                        </Form.Group>
+                    </Col>
+
+                    <Col>
+                        <Form.Group>
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control 
+                                    name = "email"
+                                    value = {this.state.email}
+                                    onChange = {this.onChange}
+                                    id = "email"
+                                    type = "text"
+                                    placeholder="Email"/>
+                        </Form.Group>
+                    </Col>
+
+                </Form.Row>
+             
+                <label><strong>Address</strong></label>
+
+                <Form.Row>
                     <Col>
                         <Form.Group>
                         <Form.Label>Country</Form.Label>
@@ -183,31 +211,6 @@ style = {decSignForm}>
                         </Form.Group>
                     </Col>
 
-                    <Col>
-                        <Form.Group>
-                        <Form.Label>Telephone Number</Form.Label>
-                        <Form.Control 
-                                    name = "telephoneNumber"
-                                    value = {this.state.telephoneNumber}
-                                    onChange = {this.onChange}
-                                    id = "telephoneNumber"
-                                    type = "text"
-                                    placeholder="Number"/>
-                        </Form.Group>
-                    </Col>
-
-                    <Col>
-                        <Form.Group>
-                        <Form.Label>email</Form.Label>
-                        <Form.Control 
-                                    name = "email"
-                                    value = {this.state.email}
-                                    onChange = {this.onChange}
-                                    id = "email"
-                                    type = "text"
-                                    placeholder="email"/>
-                        </Form.Group>
-                    </Col>
                     <Col>
                         <Form.Group>
                             <Form.Label>City</Form.Label>
@@ -291,7 +294,6 @@ style = {decSignForm}>
 
 
 const decSignForm = {
-    fontFamily: "Helvetica Neue",
     fontSize: "15px",
     marginTop: "20px",
     padding: "15px 15px 150px 15px",

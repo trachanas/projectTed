@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Button, Form, Col, Row, Image} from 'react-bootstrap'
 import "../index.css"
-import logoStart from '../logoStart.png'
+import logoStart from '../aaa.png'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../actions/authActions";
@@ -111,7 +111,6 @@ class Login extends Component {
 }
 
 const decSignForm = {
-    fontFamily: "Courier",
     fontSize: "15px",
     marginTop: "0px",
     padding: "10px",
