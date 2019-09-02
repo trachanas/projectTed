@@ -21,9 +21,34 @@ mongoose
     db,
     { useNewUrlParser: true }
   )
-  .then(() => console.log("MongoDB successfully connected"))
-  .catch(err => console.log(err));
+  .then(() => {
+      console.log("MongoDB successfully connected");
 
+      // const fs = require('fs');
+      // const XmlStream = require('xml-stream');
+      // const stream = fs.createReadStream('items-27.xml');
+      // const xml = new XmlStream(stream);
+      //
+      // let i = 1;
+      //
+      // xml.on('data', function(label) {
+      //
+            // Model here
+      //     Model.insert(label, { upsert:true }, (err, doc) => {
+      //         if(err) {
+      //             process.stdout.write(err + "\r");
+      //         } else {
+      //             process.stdout.write(`Saved ${i} entries..\r`);
+      //             i++;
+      //         }
+      //     });
+      // });
+      //
+      // xml.on('end', function() {
+      //     console.log('end event received, done');
+      // });
+  })
+  .catch(err => console.log(err));
 
   // Passport middleware
 app.use(passport.initialize());

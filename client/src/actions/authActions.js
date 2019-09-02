@@ -4,12 +4,13 @@ import jwt_decode from "jwt-decode";
 import {
   GET_ERRORS,
   SET_CURRENT_USER,
-  USER_LOADING
+  USER_LOADING,
+    SET_ALL_USERS,
 } from "./types";
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
-  
+
   axios
     .post("/api/users/register", userData)
     .then(res => history.push("/login")) // re-direct to login on successful register
@@ -20,6 +21,13 @@ export const registerUser = (userData, history) => dispatch => {
       })
     );
 };
+
+export const fetchAllUsers = () => dispatch => {
+    axios.get("/api/users/all").then((res) => {
+        dispatch(setAllUsers(res.data));
+    });
+};
+
 // Login - get user token
 export const loginUser = userData => dispatch => {
   axios
@@ -43,6 +51,12 @@ export const loginUser = userData => dispatch => {
       })
     );
 };
+
+export const setAllUsers = (users) => ({
+    type: SET_ALL_USERS,
+    users,
+});
+
 // Set logged in user
 export const setCurrentUser = decoded => {
   return {
