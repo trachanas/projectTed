@@ -1,54 +1,110 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-
 const passport = require("passport");
 const users = require("./routes/api/users");
+var GenerateSchema = require('generate-schema')
 
 const app = express();
 // Bodyparser middleware
-app.use(
-  bodyParser.urlencoded({
-    extended: false
-  })
-);
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
+
 // DB Config
 const db = require("./config/keys").mongoURI;
-// Connect to MongoDB
-mongoose
-  .connect(
-    db,
-    { useNewUrlParser: true }
-  )
-  .then(() => {
-      console.log("MongoDB successfully connected");
+mongoose.connect(db,{ useNewUrlParser: true });
+console.log("MongoDB successfully connected");
 
-      // const fs = require('fs');
-      // const XmlStream = require('xml-stream');
-      // const stream = fs.createReadStream('items-27.xml');
-      // const xml = new XmlStream(stream);
-      //
-      // let i = 1;
-      //
-      // xml.on('data', function(label) {
-      //
-            // Model here
-      //     Model.insert(label, { upsert:true }, (err, doc) => {
-      //         if(err) {
-      //             process.stdout.write(err + "\r");
-      //         } else {
-      //             process.stdout.write(`Saved ${i} entries..\r`);
-      //             i++;
-      //         }
-      //     });
-      // });
-      //
-      // xml.on('end', function() {
-      //     console.log('end event received, done');
-      // });
+const database = mongoose.connection;
+
+database.on("error", console.error.bind(console, "connection error"));
+database.once("open", function(callback) {
+     console.log("Connection succeeded.");
+});
+
+const Schema = mongoose.Schema;
+
+// Create Schema
+var UserSchema = new Schema({
+  Name: String,
+  
+});
+
+
+
+var fs = require('fs');
+var XmlStream = require('xml-stream');
+      /*
+         * Pass the ReadStream object to xml-stream
+      */
+var stream = fs.createReadStream('items-27.xml');
+var xml = new XmlStream(stream);
+
+xml.preserve('Items', true);
+xml.collect('subitem');
+
+xml.on('endElement: Items', function(item) {
+
+   console.log(item)
+  var data = mongoose.model("data",UserSchema);
+
+  dataUser = new data({
+    Name: item.Name
   })
-  .catch(err => console.log(err));
+
+  dataUser.save(function(err){
+    if (err) throw err;
+    console.log("Ok")
+  })
+});
+    //s = mongoose schema
+   // var s = new 
+//     UserSchema = GenerateSchema.mongoose(item)
+//  console.log("11" + typeof UserSchema)
+//    var dataUser = mongoose.model('data', UserSchema);
+// //   dataUser = s;
+// //   var u = new dataUser();
+//  dataUser.save(function(err){
+//     if(err) throw err;
+//     console.log("OK")
+//   }); 
+  
+//})
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // Passport middleware
 app.use(passport.initialize());

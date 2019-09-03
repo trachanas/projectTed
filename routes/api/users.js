@@ -16,8 +16,7 @@ const User = require("../../models/User");
 // @access Public
 router.post("/register", (req, res) => {
   // Form validation
-  console.log("#####")
-  console.log(req.body)
+
 const { errors, isValid } = validateRegisterInput(req.body);
 // Check validation
   if (!isValid) {
@@ -41,16 +40,14 @@ User.findOne({ email: req.body.email }).then(user => {
         vatNumber: req.body.vatNumber,
         creditCardNumber: req.body.creditCardNumber
       });
-
+      console.log(newUser)
 // Hash password before saving in database
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser.password = hash;
           newUser.passwordConfirm = hash;
-          newUser
-            .save()
-            .then(user => res.json(user))
+          newUser.save().then(user => res.json(user))
             .catch(err => console.log(err));
         });
       });
