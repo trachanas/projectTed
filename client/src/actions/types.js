@@ -3,3 +3,5 @@ export const USER_LOADING = "USER_LOADING";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const FETCH_ALL_USERS = "FETCH_ALL_USERS";
 export const SET_ALL_USERS = "SET_ALL_USERS";
+export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
+export const SET_PRODUCTS = "SET_PRODUCTS";

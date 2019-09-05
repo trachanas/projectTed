@@ -10,30 +10,21 @@ export class Navbar extends Component {
         return (
             <div>
                 <NavWrap className = "navbar navbar-expand-sm navbar-dark-px-sm-5">
-                <ul class = "nav-item">
-                <a class = "nav-link"> 
-                    <Link to="/welcomePage" >
-                    <img
-                        src = {cart}
-                        alt = "Homepage"
-                        className = "navbar-brand" 
-                    />    
-                </Link> 
-                </a>
+                <ul className = "nav-item">
+                        <Link to="/welcomePage" >
+                            <img
+                                src = {cart}
+                                alt = "Homepage"
+                                className = "navbar-brand" />    
+                        </Link> 
                 </ul>
                 <Link to = "/login" className = "ml-auto">
-                    <RegisterButton>
-                       
-                        Login
-                    </RegisterButton>
+                    <RegisterButton>Login</RegisterButton>
                 </Link>
  
 
                 <Link to = "/register" >
-                    <RegisterButton>
-                        
-                        Register
-                    </RegisterButton>
+                    <RegisterButton>Register</RegisterButton>
                 </Link>
             </NavWrap>
             </div>
