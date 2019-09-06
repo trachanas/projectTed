@@ -46,8 +46,6 @@ const columns = [{
 
 const Admin = ({ users, fetchAllUsers }) => {
 
-    console.log(users);
-
     useEffect(() => {
         fetchAllUsers();
     }, []);

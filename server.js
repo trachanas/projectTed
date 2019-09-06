@@ -33,8 +33,8 @@ app.use("/api/users", users);
 
 app.get("/api/products/all", (req, res) => {
   
-  Products.aggregate([{ $limit: 50 }]).then((data) => {
-    res.json({ data });
+  Products.aggregate([{ $limit: 100 }]).then((data) => {
+    res.json( data );
   });
 });
 

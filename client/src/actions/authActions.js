@@ -10,10 +10,10 @@ import {
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
-
+  console.log(userData)
   axios
     .post("/api/users/register", userData)
-    .then(res => history.push("/login")) // re-direct to login on successful register
+    .then(res => history.push("/welcomePage")) // re-direct to login on successful register
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -42,6 +42,7 @@ export const loginUser = userData => dispatch => {
       // Decode token to get user data
       const decoded = jwt_decode(token);
       // Set current user
+      
       dispatch(setCurrentUser(decoded));
     })
     .catch(err =>
