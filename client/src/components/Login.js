@@ -5,7 +5,6 @@ import logoStart from '../aaa.png'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../actions/authActions";
-import classnames from "classnames";
 
 class Login extends Component {
     constructor (){
@@ -60,7 +59,6 @@ class Login extends Component {
     }
 
     render() {
-
         const { errors } = this.state;
         return (
             <div>
@@ -124,7 +122,6 @@ const decSignForm = {
     marginRight: "auto",
     width: "40%",
 }
-
 
 const errorStyle = {
     fontFamily : "Helvetica Neue",

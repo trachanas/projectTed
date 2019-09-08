@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import {Switch, Route} from 'react-router-dom'
-import {Footer} from 'mdbreact'
-
-import Navbar from './components/layout/Navbar.js'
+import NavigationBar from './components/layout/NavigationBar.js'
 import Login from './components/Login.js'
 import Register from './components/Register.js'
 import WelcomePage from './components/WelcomePage.js'
@@ -13,8 +11,11 @@ import errorPage from './components/errorPage.js'
 
 import Admin from './components/Admin.js';
 import "./App.css";
+// eslint-disable-next-line
 import jwt_decode from "jwt-decode";
+// eslint-disable-next-line
 import setAuthToken from "./utils/setAuthToken";
+// eslint-disable-next-line
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 
 import { Provider } from "react-redux";
@@ -25,7 +26,7 @@ class App extends Component {
     return (
       <Provider store = {store}>
         <React.Fragment>
-        <Navbar/>
+        <NavigationBar />
           <Switch>
             <Route exact path = "/welcomePage" component = {WelcomePage}/>
             <Route exact path = "/login" component = {Login}/>
@@ -37,11 +38,11 @@ class App extends Component {
             <Route component = {errorPage} />
           </Switch>
 
-        <Footer className = "footer">
+        {/* <Footer className = "footer">
           <p className="footer-copyright mb-0">
             &copy; {new Date().getFullYear()} Copyright
           </p>
-        </Footer> 
+        </Footer>  */}
         </React.Fragment>
       </Provider>
     );
