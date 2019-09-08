@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import {connect, useSelector} from 'react-redux';
+import {connect} from 'react-redux';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
-import {fetchAllUsers, loginUser} from '../actions/authActions';
+import {fetchAllUsers} from '../actions/authActions';
+//import { ActionAccessibility } from 'material-ui/svg-icons';
 
 const columns = [{
     Header: 'Username',
@@ -20,6 +21,7 @@ const columns = [{
 }, {
     Header: 'Country',
     accessor: 'country'
+   // Cell: ({ original }) => <onclick={() => ActionAccessibility(original)}...>
 }, {
     Header: 'City',
     accessor: 'city'
@@ -65,7 +67,4 @@ const mapStateToProps = state => ({
     users: state.auth.users,
 });
 
-export default connect(
-    mapStateToProps,
-    { fetchAllUsers }
-)(Admin);
+export default connect(mapStateToProps,{ fetchAllUsers })(Admin);

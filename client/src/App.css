@@ -24,8 +24,16 @@
     
   }
 
- 
-  
+  .decTabs {
+    text-align: center;
+  }
+
+  .footer {
+    color: white;
+    background-color: var(--mainBlue);
+    text-align: center;
+    margin-bottom: 0px;
+  }
   .text-title {
     font-family: 'Bonbon' !important; 
     letter-spacing: 0.4rem;

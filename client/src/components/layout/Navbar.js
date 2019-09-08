@@ -4,12 +4,32 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import cart from './cart.png'
 import '../../App.css'
 import styled from 'styled-components'
+import { Input } from 'mdbreact'
+
+{/* <div class="container">
+  <div class="row">
+    <div class="col-sm">
+      One of three columns
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+    <div class="col-sm">
+      One of three columns
+    </div>
+  </div>
+</div> */}
+
+
+
 
 export class Navbar extends Component {
     render() {
         return (
             <div>
                 <NavWrap className = "navbar navbar-expand-sm navbar-dark-px-sm-5">
+               
+             
                 <ul className = "nav-item">
                         <Link to="/welcomePage" >
                             <img
@@ -18,13 +38,21 @@ export class Navbar extends Component {
                                 className = "navbar-brand" />    
                         </Link> 
                 </ul>
+                <button className = "ml-auto">this is a button</button>
+
+                
                 <Link to = "/login" className = "ml-auto">
                     <RegisterButton>Login</RegisterButton>
                 </Link>
  
 
-                <Link to = "/register" >
+                <Link to = "/register">
                     <RegisterButton>Register</RegisterButton>
+                </Link>
+
+
+                <Link to = "/addBid" >
+                    <RegisterButton>Add Bid</RegisterButton>
                 </Link>
             </NavWrap>
             </div>

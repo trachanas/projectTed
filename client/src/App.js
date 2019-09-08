@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import {Switch, Route} from 'react-router-dom'
+import {Footer} from 'mdbreact'
 
 import Navbar from './components/layout/Navbar.js'
 import Login from './components/Login.js'
 import Register from './components/Register.js'
 import WelcomePage from './components/WelcomePage.js'
+import Product from './components/Product.js'
+import AddBid from './components/AddBid.js'
+import ShowActiveBids from './components/ShowActiveBids.js'
 import errorPage from './components/errorPage.js'
 
 import Admin from './components/Admin.js';
@@ -27,9 +31,17 @@ class App extends Component {
             <Route exact path = "/login" component = {Login}/>
             <Route exact path = "/register" component = {Register}/>
             <Route exact path = "/admin" component = {Admin}/>
-            <Route exact path = "/product" component = {Product}>
+            <Route exact path = "/product" component = {Product}/>
+            <Route exact path = "/addBid" component = {AddBid}/>
+            <Route exact path = "/showActiveBids" component = {ShowActiveBids}/>
             <Route component = {errorPage} />
           </Switch>
+
+        <Footer className = "footer">
+          <p className="footer-copyright mb-0">
+            &copy; {new Date().getFullYear()} Copyright
+          </p>
+        </Footer> 
         </React.Fragment>
       </Provider>
     );

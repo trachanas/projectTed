@@ -1,41 +1,56 @@
 import React, { useEffect } from 'react'
 import { connect } from "react-redux";
-import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-import { fetchProducts } from "../actions/product-actions";
-import {Accordion, Card, Button} from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
+import { fetchProducts , setOneProduct , showActiveBids } from "../actions/product-actions";
+const  moment = require('moment');
 
-
-const WelcomePage = ({ fetchProducts, products = [], history }) => {
-    
+const WelcomePage = ({ fetchProd, setOneProduct,showActiveBids, products = [], history, ...rest }) => {
 
     useEffect(() => {
-        fetchProducts();
-    }, [fetchProducts]);
+        fetchProd();
+    }, [fetchProd]);
 
-    console.log(history)
-
-    const handleClick = (id) => {
+    const handleClick = (item) => {
+        setOneProduct(item);
         history.push("/product");
     };
 
-    //const names = products.map(item => item.Name)
-   /// console.log(names)
-    // names.forEach(item =>
-    //     console.log(item)
-    // )
+
+    const showBids = (activeBids) => {
+        showActiveBids(activeBids);
+        history.push("/showActiveBids");
+    };
 
     const columns = [{
         Header: 'Product Name',
         accessor: ''
     }]
 
+    //console.log(products);
+    
+
+    var myMoment  = moment("Sun Dec 16 2001 18:27:30 GMT+0200");
+
+    let activeBids = []
+
+
+    products.forEach((product) => {
+       // console.log(product.Ends)
+        if (myMoment < moment(product.Ends) ){
+            activeBids.push(product)
+        }
+    })
+    
+    //console.log(activeBids);
+
     return (
         <div>
+            <Button onClick = {() => showBids(activeBids)} >SHOW ACTIVE BIDS</Button>
             <ul>
                 {products.map( item => {
                     return(
-                     <div style = {box} key = {item.ItemID} onClick={() => handleClick(item.ItemID)}><h4>{item.Name}</h4></div>
+                     <div style = {box} key = {item.ItemID} onClick={() => handleClick(item)}><h4>{item.Name}</h4></div>
                     )
                 })}
             </ul>    
@@ -44,17 +59,12 @@ const WelcomePage = ({ fetchProducts, products = [], history }) => {
 };
 
 
-//onClick={() => handleClick(item.ItemID)}
 const mapStateToProps = (state) => ({ products: state.products.data });
 
-const mapDispatchToProps = { fetchProducts };
+const mapDispatchToProps = { fetchProd: fetchProducts , setOneProduct, showActiveBids };
+//const mapDispatchToProps = (dispatch) => ({ ac: (asd) => dispatch(fetchProducts(asd)) }) //{ fetchProd: fetchProducts , setOneProduct };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WelcomePage);
- {/* <ul>
-                {products.map((item) => (
-                    <li key={item.ItemID} onClick={() => handleClick(item.ItemID)}>{item.Name}</li>
-                ))}
-            </ul> */}
 
 
 const box = {
