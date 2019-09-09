@@ -5,7 +5,7 @@ import { Button, ListGroup } from 'react-bootstrap'
 import { fetchProducts , setOneProduct , showActiveBids } from "../actions/product-actions";
 const  moment = require('moment');
 
-const WelcomePage = ({ fetchProd, setOneProduct,showActiveBids, products = [], history, ...rest }) => {
+const WelcomePage = ({ fetchProd, setOneProduct, showActiveBids, products = [], history,  }) => {
 
     useEffect(() => {
         fetchProd();
@@ -17,10 +17,10 @@ const WelcomePage = ({ fetchProd, setOneProduct,showActiveBids, products = [], h
     };
 
 
-    const showBids = (activeBids) => {
-        showActiveBids(activeBids);
-        history.push("/showActiveBids");
-    };
+    // const showBids = (activeBids) => {
+    //     showActiveBids(activeBids);
+    //     //history.push("/showActiveBids");
+    // };
 
     const columns = [{
         Header: 'Product Name',
@@ -44,14 +44,15 @@ const WelcomePage = ({ fetchProd, setOneProduct,showActiveBids, products = [], h
     
     //console.log(activeBids);
 
+    showActiveBids(activeBids)
+
     return (
         <div>
-            <Button onClick = {() => showBids(activeBids)} >SHOW ACTIVE BIDS</Button>
             <ul>
                 {products.map( item => {
                     return(
                         <ListGroup key = {item.ItemID} variant = "Info">
-                            <ListGroup.Item key = {item.ItemID} onClick={() => handleClick(item)}>{item.Name}</ListGroup.Item>
+                            <ListGroup.Item onClick={() => handleClick(item)}>{item.Name}</ListGroup.Item>
                         </ListGroup>
                     )
                 })}
