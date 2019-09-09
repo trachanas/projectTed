@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const users = require("./routes/api/users");
+const datas = require("./routes/api/datas")
 const Products = require("./models/Products");
-var GenerateSchema = require('generate-schema')
 
 const app = express();
 // Bodyparser middleware
@@ -30,7 +30,7 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 // Routes
 app.use("/api/users", users);
-
+app.use("/api/datas", datas)
 app.get("/api/products/all", (req, res) => {
   
   Products.aggregate([{ $limit: 500 }]).then((data) => {

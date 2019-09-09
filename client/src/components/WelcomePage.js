@@ -50,7 +50,7 @@ const WelcomePage = ({ fetchProd, setOneProduct,showActiveBids, products = [], h
             <ul>
                 {products.map( item => {
                     return(
-                        <ListGroup variant = "Info">
+                        <ListGroup key = {item.ItemID} variant = "Info">
                             <ListGroup.Item key = {item.ItemID} onClick={() => handleClick(item)}>{item.Name}</ListGroup.Item>
                         </ListGroup>
                     )
