@@ -46,5 +46,8 @@
     "xml-stream": "^0.4.5",
     "xml2js": "^0.4.21",
     "xml2json": "^0.11.2"
+  },
+  "devDependencies": {
+    "uuid": "^3.3.3"
   }
 }

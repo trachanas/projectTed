@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from "react-redux";
 import 'react-table/react-table.css';
-import { Button } from 'react-bootstrap'
+import { Button, ListGroup } from 'react-bootstrap'
 import { fetchProducts , setOneProduct , showActiveBids } from "../actions/product-actions";
 const  moment = require('moment');
 
@@ -50,7 +50,9 @@ const WelcomePage = ({ fetchProd, setOneProduct,showActiveBids, products = [], h
             <ul>
                 {products.map( item => {
                     return(
-                     <div style = {box} key = {item.ItemID} onClick={() => handleClick(item)}><h4>{item.Name}</h4></div>
+                        <ListGroup variant = "Info">
+                            <ListGroup.Item key = {item.ItemID} onClick={() => handleClick(item)}>{item.Name}</ListGroup.Item>
+                        </ListGroup>
                     )
                 })}
             </ul>    

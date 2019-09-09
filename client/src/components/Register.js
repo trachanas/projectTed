@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import {Form, Col, Button, Row} from 'react-bootstrap'
 import CountrySelect from './CountrySelect'
-import { Link , withRouter} from "react-router-dom"
+import { withRouter} from "react-router-dom"
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../actions/authActions";
-import classnames from "classnames";
 
 
 
