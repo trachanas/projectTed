@@ -34,8 +34,7 @@ app.use("/api/datas", datas)
 
 app.get("/api/products/all", (req, res) => {
   
-  Products.aggregate([{ $limit: 10 }]).then((data) => {
-    console.log(data)
+  Products.aggregate([{ $limit: 100 }]).then((data) => {
     res.json( data );
   });
 });

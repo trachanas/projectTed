@@ -7,6 +7,7 @@ import WelcomePage from './components/WelcomePage.js'
 import Product from './components/Product.js'
 import AddBid from './components/AddBid.js'
 import ShowActiveBids from './components/ShowActiveBids.js'
+import OpenMap from './components/OpenMap.js'
 import errorPage from './components/errorPage.js'
 
 import Admin from './components/Admin.js';
@@ -35,6 +36,7 @@ class App extends Component {
             <Route exact path = "/product" component = {Product}/>
             <Route exact path = "/addBid" component = {AddBid}/>
             <Route exact path = "/showActiveBids" component = {ShowActiveBids}/>
+            <Route exact path = "/openMap" component = {OpenMap}/>
             <Route component = {errorPage} />
           </Switch>
 

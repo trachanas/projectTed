@@ -36,7 +36,6 @@ const WelcomePage = ({ fetchProd, setOneProduct, showActiveBids, products = [], 
     
 
     showActiveBids(activeBids)
- //console.log(products)
     return (
         <div>
             <ul>
