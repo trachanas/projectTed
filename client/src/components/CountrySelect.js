@@ -20,7 +20,6 @@ class CountrySelect extends Component {
       }
 
     render() {
-        let defaultValue = "";
 
         return (
             <div>

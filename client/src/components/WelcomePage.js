@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from "react-redux";
 import 'react-table/react-table.css';
-import { Button, ListGroup } from 'react-bootstrap'
+import {  ListGroup } from 'react-bootstrap'
 import { fetchProducts , setOneProduct , showActiveBids } from "../actions/product-actions";
 const  moment = require('moment');
 
@@ -16,18 +16,11 @@ const WelcomePage = ({ fetchProd, setOneProduct, showActiveBids, products = [], 
         history.push("/product");
     };
 
+    // const columns = [{
+    //     Header: 'Product Name',
+    //     accessor: ''
+    // }]
 
-    // const showBids = (activeBids) => {
-    //     showActiveBids(activeBids);
-    //     //history.push("/showActiveBids");
-    // };
-
-    const columns = [{
-        Header: 'Product Name',
-        accessor: ''
-    }]
-
-    //console.log(products);
     
 
     var myMoment  = moment("Sun Dec 16 2001 18:27:30 GMT+0200");
@@ -36,16 +29,14 @@ const WelcomePage = ({ fetchProd, setOneProduct, showActiveBids, products = [], 
 
 
     products.forEach((product) => {
-       // console.log(product.Ends)
         if (myMoment < moment(product.Ends) ){
             activeBids.push(product)
         }
     })
     
-    //console.log(activeBids);
 
     showActiveBids(activeBids)
-
+ //console.log(products)
     return (
         <div>
             <ul>
@@ -69,7 +60,3 @@ const mapDispatchToProps = { fetchProd: fetchProducts , setOneProduct, showActiv
 
 export default connect(mapStateToProps, mapDispatchToProps)(WelcomePage);
 
-
-const box = {
-    border : "1px solid black"
-}

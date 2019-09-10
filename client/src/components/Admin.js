@@ -50,7 +50,7 @@ const Admin = ({ users, fetchAllUsers }) => {
 
     useEffect(() => {
         fetchAllUsers();
-    }, []);
+    }, [fetchAllUsers]);
 
     return (
         <>

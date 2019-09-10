@@ -82,7 +82,7 @@ class Register extends Component {
 
     render() {
 
-        const { errors } = this.state;
+       // const { errors } = this.state;
         return (
             <div style = {decPage}>
             <Form                              onSubmit = {this.onSubmit}
@@ -311,10 +311,10 @@ const decPage = {
     borderBottom: "1px solid grey"
 }
 
-const errorStyle = {
-    fontFamily : "Helvetica Neue",
-    color: "#ff0000"
-}
+// const errorStyle = {
+//     fontFamily : "Helvetica Neue",
+//     color: "#ff0000"
+// }
 
 Register.propTypes = {
     registerUser: PropTypes.func.isRequired,

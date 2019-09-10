@@ -21,7 +21,7 @@ class Login extends Component {
     componentDidMount() {
         // If logged in and user navigates to Login page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
-          this.props.history.push("/dashboard");
+          this.props.history.push("/welcomePage");
         }
       }
 
@@ -59,7 +59,7 @@ class Login extends Component {
     }
 
     render() {
-        const { errors } = this.state;
+       // const { errors } = this.state;
         return (
             <div>
               <Image style = {decLogoStart} src = {logoStart}/>
@@ -123,10 +123,10 @@ const decSignForm = {
     width: "40%",
 }
 
-const errorStyle = {
-    fontFamily : "Helvetica Neue",
-    color: "#ff0000"
-}
+// const errorStyle = {
+//     fontFamily : "Helvetica Neue",
+//     color: "#ff0000"
+// }
 
 const decLogoStart = {
     width: "15%",

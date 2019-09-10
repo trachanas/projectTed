@@ -31,9 +31,11 @@ require("./config/passport")(passport);
 // Routes
 app.use("/api/users", users);
 app.use("/api/datas", datas)
+
 app.get("/api/products/all", (req, res) => {
   
-  Products.aggregate([{ $limit: 500 }]).then((data) => {
+  Products.aggregate([{ $limit: 10 }]).then((data) => {
+    console.log(data)
     res.json( data );
   });
 });

@@ -37,6 +37,8 @@ var DataSchema = new Schema({
     Number_of_Bids: String,
     Bids: [],
     Location: String,
+    Longitude: String,
+    Latitude: String,
     Country: String,
     Started: String,
     Ends: String,
@@ -63,12 +65,18 @@ const formatBids = (item = []) => Array.isArray(item) ? item.map(formatBid) : [f
 
 
 json.Items.Item.forEach((item) => {
-        // console.log(    item["First_Bid"]["_text"]       
-        // )
-      
-    var buy = item["Buy_Price"] === undefined ? "0" : item["Buy_Price"]["_text"]
+       
 
-    //console.log(buy)
+    //console.log(item)
+
+    var longitude =  item.Location._attributes === undefined ? "0" : item.Location._attributes.Longitude;
+    var latitude = item.Location._attributes === undefined ? "0" : item.Location._attributes.Latitude;
+
+    // if( Latitude !== "0" && Longitude !== "0"){
+    //     console.log(Longitude , Latitude);
+    // }
+
+    var buy = item["Buy_Price"] === undefined ? "0" : item["Buy_Price"]["_text"]
 
 	const { 
 		_attributes: { ItemID },
@@ -76,10 +84,12 @@ json.Items.Item.forEach((item) => {
         Category,
         Currently: { _text: Currently},
         Buy_Price,
-		First_Bid: { _text: First_Bid },
+        First_Bid: { _text: First_Bid },
         Number_of_Bids: { _text: Number_of_Bids },
         Bids,
-		Location: { _text: Location },
+        Location: { _text: Location},
+        Latitude,
+        Longitude,
 		Country: { _text: Country },
 		Started: { _text: Started },
         Ends: { _text: Ends },
@@ -88,8 +98,6 @@ json.Items.Item.forEach((item) => {
 		
 	} = item;
     
-
-
 	const newItem = {
 		ItemID,
         Name,
@@ -99,7 +107,9 @@ json.Items.Item.forEach((item) => {
 		First_Bid,
         Number_of_Bids,
         Bids: formatBids(Bids.Bid),
-		Location,
+        Location,
+        Latitude: latitude,
+        Longitude: longitude,
 		Country,
 		Started,
 		Ends,
@@ -111,8 +121,7 @@ json.Items.Item.forEach((item) => {
 	};
 
 
-	//console.log(newItem);
-//	console.log();
+// console.log(newItem);
 
     productData = new data({
         ItemID: newItem.ItemID,
@@ -122,7 +131,9 @@ json.Items.Item.forEach((item) => {
         First_Bid: newItem.First_Bid,
         Number_of_Bids: newItem.Number_of_Bids,
         Bids: newItem.Bids,
-        Location: newItem.Location ,
+        Location: newItem.Location,
+        Latitude: newItem.Latitude,
+        Longitude: newItem.Longitude,
         Country: newItem.Country,
         Started: newItem.Started,
         Ends: newItem.Ends,
@@ -130,6 +141,8 @@ json.Items.Item.forEach((item) => {
         Description: newItem.Description
 
   })
+
+  
 
   productData.save(function(err){
     if (err) throw err;
