@@ -142,11 +142,12 @@ json.Items.Item.forEach((item) => {
 
   })
 
-  
+//   let a = newItem.First_Bid.replace("$","")
+//   console.log(a)
 
-  productData.save(function(err){
-    if (err) throw err;
-  })
+//   productData.save(function(err){
+//     if (err) throw err;
+//   })
 i++;
 
 });

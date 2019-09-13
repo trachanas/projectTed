@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {Button, Form, Col, Row, Image} from 'react-bootstrap'
-import "../index.css"
 import logoStart from '../aaa.png'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";

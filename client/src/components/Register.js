@@ -85,8 +85,7 @@ class Register extends Component {
        // const { errors } = this.state;
         return (
             <div style = {decPage}>
-            <Form                              onSubmit = {this.onSubmit}
-style = {decSignForm}>
+            <Form onSubmit = {this.onSubmit} style = {decSignForm}>
                 <Form.Group > 
                     
                     <Form.Label><strong>Username</strong></Form.Label>

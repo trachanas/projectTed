@@ -8,7 +8,7 @@ export const registerUser = (userData, history) => dispatch => {
   console.log(userData)
   axios
     .post("/api/users/register", userData)
-    .then(res => history.push("/welcomePage")) // re-direct to login on successful register
+    .then(res => history.push("/requestWaiting")) // re-direct to login on successful register
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

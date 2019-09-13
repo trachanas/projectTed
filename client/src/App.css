@@ -39,6 +39,11 @@
     letter-spacing: 0.4rem;
     text-transform: uppercase;
   }
+
+  .request {
+    text-align: center;
+    margin-top: 100px;
+  }
   
   .text-blue {
     color: var(--mainBlue) !important

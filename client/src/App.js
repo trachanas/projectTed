@@ -8,7 +8,11 @@ import Product from './components/Product.js'
 import AddBid from './components/AddBid.js'
 import ShowActiveBids from './components/ShowActiveBids.js'
 import OpenMap from './components/OpenMap.js'
+import RequestWaiting from './components/RequestWaiting.js'
+import AdvancedSearch from './components/AdvancedSearch.js'
+import SearchResults from './components/SearchResults.js'
 import errorPage from './components/errorPage.js'
+
 
 import Admin from './components/Admin.js';
 import "./App.css";
@@ -37,6 +41,10 @@ class App extends Component {
             <Route exact path = "/addBid" component = {AddBid}/>
             <Route exact path = "/showActiveBids" component = {ShowActiveBids}/>
             <Route exact path = "/openMap" component = {OpenMap}/>
+            <Route exact path = "/requestWaiting" component = {RequestWaiting} />
+            <Route exact path = "/advancedSearch" component = {AdvancedSearch} />
+            <Route exact path = "/searchResults" component = {SearchResults} />
+
             <Route component = {errorPage} />
           </Switch>
 

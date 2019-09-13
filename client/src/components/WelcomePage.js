@@ -16,13 +16,6 @@ const WelcomePage = ({ fetchProd, setOneProduct, showActiveBids, products = [], 
         history.push("/product");
     };
 
-    // const columns = [{
-    //     Header: 'Product Name',
-    //     accessor: ''
-    // }]
-
-    
-
     var myMoment  = moment("Sun Dec 16 2001 18:27:30 GMT+0200");
 
     let activeBids = []
@@ -35,7 +28,8 @@ const WelcomePage = ({ fetchProd, setOneProduct, showActiveBids, products = [], 
     })
     
 
-    showActiveBids(activeBids)
+    showActiveBids(activeBids);
+    
     return (
         <div>
             <ul>

@@ -48,6 +48,10 @@ const columns = [{
 
 const Admin = ({ users, fetchAllUsers }) => {
 
+    const handleClick = () => {
+        alert("YAAA")
+    }
+
     useEffect(() => {
         fetchAllUsers();
     }, [fetchAllUsers]);
@@ -55,7 +59,7 @@ const Admin = ({ users, fetchAllUsers }) => {
     return (
         <>
             <h1>HELLO ADMIN</h1>
-            <ReactTable
+            <ReactTable onClick = {() => handleClick()}
                 data={users}
                 columns={columns}
             />
