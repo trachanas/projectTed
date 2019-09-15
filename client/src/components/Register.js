@@ -25,6 +25,7 @@ class Register extends Component {
             zipCode: "",
             vatNumber: "",
             creditCardNumber: "",
+            isAccepted: false,
             errors : {}
         }
 
@@ -69,7 +70,8 @@ class Register extends Component {
         city: this.state.city,
         zipCode: this.state.zipCode,
         vatNumber: this.state.vatNumber,
-        creditCardNumber: this.state.creditCardNumber
+        creditCardNumber: this.state.creditCardNumber,
+        isAccepted: this.state.isAccepted
     };
       this.props.registerUser(newUser, this.props.history);
   

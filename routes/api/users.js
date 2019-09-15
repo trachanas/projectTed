@@ -38,7 +38,8 @@ User.findOne({ email: req.body.email }).then(user => {
         city: req.body.city,
         zipCode: req.body.zipCode,
         vatNumber: req.body.vatNumber,
-        creditCardNumber: req.body.creditCardNumber
+        creditCardNumber: req.body.creditCardNumber,
+        isAccepted: req.body.isAccepted
       });
       console.log(newUser)
 // Hash password before saving in database

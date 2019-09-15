@@ -5,6 +5,8 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 const datas = require("./routes/api/datas")
 const Products = require("./models/Products");
+const Users = require("./models/User")
+const History = require("./models/History");
 
 const app = express();
 // Bodyparser middleware
@@ -41,6 +43,24 @@ app.get("/api/products/all", (req, res) => {
 
 const buildTerm = (term) => new RegExp(`\\.*${term}\\.*`);
 
+app.post("/api/history/add", (req , res) =>
+    History.findOne({UserID: req.body.UserID}).then((res) => {
+      if (!res){
+
+
+      const node = new History({
+        UserID: req.body.UserID,
+        Products: [{productID: req.body.productID, timesViewed : 1}]
+      })
+      node.save();
+      //  History.insert({UserID: req.body.UserID, Products: [{productID: req.body.productID, timesViewed : 1}]})
+      }else{
+      History.updateOne({UserID: req.body.UserID} , { "$set": { "Products.$.productID": req.body.productID }}, {upsert : true})
+
+      }
+    })
+)
+
 app.post("/api/datas/search", (req , res) => {
 
   const query = 
@@ -54,14 +74,29 @@ app.post("/api/datas/search", (req , res) => {
 })
 
 
+app.post("/api/datas/addBid", (req , res) => {
+  console.log(req.body);
+})
+
+
+app.delete("/api/users/delete/:id", (req , res) => {
+  const id = req.params.id;
+  Users.deleteOne({ _id: id }).then(() => {
+      res.json({ ok: true });
+  });
+})
+
+app.put("/api/users/accept/:id", (req , res) => {
+  const id = req.params.id;
+  Users.updateOne({_id : id} , { $set: {isAccepted: true}})
+})
 
 app.put("/api/datas/update" , (req , res) => {
     const query = Object.keys(req.body)
     console.log(query.toString());
     console.log(query);
-    
-    database.collection("datas").findOneAndUpdate({ItemID: query.toString()}, { $set : {Name : "aek"}})
-
+  
+    //database.collection("datas").findOneAndUpdate({ItemID: query.toString()}, { $set : {Name : "aek"}})
 }
 
 )

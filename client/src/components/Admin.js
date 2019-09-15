@@ -3,53 +3,36 @@ import {connect} from 'react-redux';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
-import {fetchAllUsers} from '../actions/authActions';
-//import { ActionAccessibility } from 'material-ui/svg-icons';
+import {fetchAllUsers , deleteOneUser, acceptOneUser} from '../actions/authActions';
 
-const columns = [{
-    Header: 'Username',
-    accessor: 'username',
-}, {
-    Header: 'Name',
-    accessor: 'name',
-}, {
-    Header: 'Surname',
-    accessor: 'surname',
-}, {
-    Header : 'Email',
-    accessor: 'email'
-}, {
-    Header: 'Country',
-    accessor: 'country'
-   // Cell: ({ original }) => <onclick={() => ActionAccessibility(original)}...>
-}, {
-    Header: 'City',
-    accessor: 'city'
-}, {
-    Header: 'Zip Code',
-    accessor: 'zipCode'
-}, {
-    Header: 'VAT Number',
-    accessor: 'vatNumber'
-}, {
-    Header: 'Credit Card Number',
-    accessor: 'creditCardNumber'
-},
+const Admin = ({ users, fetchAllUsers, deleteOne, acceptOne }) => {
 
-{
-    Cell: () => (
-        <>
-            <button>Accept User</button>
-            <button>Delete User</button>
-        </>
-    )
-}];
-
-
-const Admin = ({ users, fetchAllUsers }) => {
+    const columns = [{
+        Header: 'Username',
+        accessor: 'username',
+    }, {
+        Header: 'Name',
+        accessor: 'name',
+    }, {
+        Header: 'Surname',
+        accessor: 'surname',
+    // }, {
+    //     Header : 'Email',
+    //     accessor: 'email'
+    // }, {
+        // Header: 'City',
+        // accessor: 'city'
+    }, {
+        Cell: ({original:{_id}}) => {    
+            return (<>
+                <button onClick = {() => acceptOne(_id)}>Accept User</button>
+                <button onClick = {() => deleteOne(_id)}>Delete User</button>
+            </>)
+            }
+    }];
 
     const handleClick = () => {
-        alert("YAAA")
+
     }
 
     useEffect(() => {
@@ -59,7 +42,7 @@ const Admin = ({ users, fetchAllUsers }) => {
     return (
         <>
             <h1>HELLO ADMIN</h1>
-            <ReactTable onClick = {() => handleClick()}
+            <ReactTable
                 data={users}
                 columns={columns}
             />
@@ -71,4 +54,4 @@ const mapStateToProps = state => ({
     users: state.auth.users,
 });
 
-export default connect(mapStateToProps,{ fetchAllUsers })(Admin);
+export default connect(mapStateToProps,{ fetchAllUsers, deleteOne: deleteOneUser, acceptOne: acceptOneUser })(Admin);

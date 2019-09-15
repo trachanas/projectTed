@@ -17,6 +17,17 @@ export const registerUser = (userData, history) => dispatch => {
     );
 };
 
+export const acceptOneUser = (id) => dispatch => {
+  axios.put("/api/users/accept/" + id);
+}
+
+export const deleteOneUser = (id) => dispatch => {
+  
+  axios.delete("/api/users/delete/" +  id).then(() => {
+    fetchAllUsers()(dispatch);
+  });
+}
+
 export const fetchAllUsers = () => dispatch => {
     axios.get("/api/users/all").then((res) => {
         dispatch(setAllUsers(res.data));
