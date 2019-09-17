@@ -75,27 +75,7 @@ app.post("/api/datas/search", (req , res) => {
 
 
 app.post("/api/datas/addBid", (req , res) => {
-  const newBid = new Products({
-    Category: req.body.Category,
-    Bids: req.body.Bids,
-    Seller: req.body.Seller,
-    ItemID: req.body.ItemID,
-    Name: req.body.Name,
-    Currently: req.body.Currently,
-    First_Bid: req.body.First_Bid,
-    Number_of_Bids: req.body.Number_of_Bids,
-    Location: req.body.Location,
-    Latitude: req.body.Latitude,
-    Longitude: req.body.Longitude,
-    Country: req.body.Country,
-    Started: req.body.Started,
-    Ends: req.body.Ends,
-    Description: req.body.Description,
-
-  })  
-
-  newBid.save().then(user => res.json(user))
-  .catch(err => console.log(err));
+  console.log(req.body);
 })
 
 
