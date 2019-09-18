@@ -9,9 +9,9 @@ import { setCoords , updateElement} from "../actions/product-actions";
 const Product = ({  item = {}, history, setCoords  }) => {
     //console.log(item);
     
-    var categories  = []
-    var bids = []
-    var bid = {}
+    var categories  = [];
+    var bids = [];
+    var bid = {};
     console.log(item);
     const handleClick = () => {
         setCoords(coords)

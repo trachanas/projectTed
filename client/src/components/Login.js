@@ -3,6 +3,7 @@ import {Button, Form, Col, Row, Image} from 'react-bootstrap'
 import logoStart from '../aaa.png'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { withRouter } from "react-router"
 import { loginUser } from "../actions/authActions";
 
 class Login extends Component {
@@ -50,7 +51,7 @@ class Login extends Component {
         password: this.state.password
       };
 
-      this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+      this.props.loginUser( {userData , history:this.props.history}); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
     }
 
     resetForm = () => {
@@ -147,4 +148,4 @@ Login.propTypes = {
   export default connect(
     mapStateToProps,
     { loginUser }
-  )(Login);
+  )(withRouter(Login));

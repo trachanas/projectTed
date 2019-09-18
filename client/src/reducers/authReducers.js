@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, USER_LOADING, SET_ALL_USERS } from "../actions/types";
+import { SET_CURRENT_USER, USER_LOADING, SET_ALL_USERS, SET_USER_INFO} from "../actions/types";
   const isEmpty = require("is-empty");
 
   const initialState = {
@@ -25,6 +25,11 @@ import { SET_CURRENT_USER, USER_LOADING, SET_ALL_USERS } from "../actions/types"
         return {
           ...state,
           users: action.users,
+        };
+      case SET_USER_INFO:
+        return {
+          ...state,
+          user: action.user
         };
       default:
         return state;

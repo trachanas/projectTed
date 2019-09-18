@@ -1,11 +1,11 @@
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
-import jwt_decode from "jwt-decode";
-import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING, SET_ALL_USERS } from "./types";
+
+import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING, SET_ALL_USERS, SET_USER_INFO } from "./types";
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
-  console.log(userData)
+  console.log(userData);
   axios
     .post("/api/users/register", userData)
     .then(res => history.push("/requestWaiting")) // re-direct to login on successful register
@@ -17,12 +17,18 @@ export const registerUser = (userData, history) => dispatch => {
     );
 };
 
+
+export const setUserInfo = (user) => ({
+    type: SET_USER_INFO,
+    payload: user
+})
+
 export const acceptOneUser = (id) => dispatch => {
   axios.put("/api/users/accept/" + id);
 }
 
 export const deleteOneUser = (id) => dispatch => {
-  
+
   axios.delete("/api/users/delete/" +  id).then(() => {
     fetchAllUsers()(dispatch);
   });
@@ -35,29 +41,30 @@ export const fetchAllUsers = () => dispatch => {
 };
 
 // Login - get user token
-export const loginUser = userData => dispatch => {
-  axios
-    .post("/api/users/login", userData)
-    .then(res => {
-      // Save to localStorage
+export const loginUser = (payload) => dispatch => {
+    //dispatch(setUserInfo(payload.userData));
+    dispatch(setCurrentUser(payload.userData));
+
+    axios.post("/api/users/login", payload.userData).then(res => payload.history.push("/welcomePage"));
+}
+            // Save to localStorage
 // Set token to localStorage
-      const { token } = res.data;
-      localStorage.setItem("jwtToken", token);
-      // Set token to Auth header
-      setAuthToken(token);
-      // Decode token to get user data
-      const decoded = jwt_decode(token);
-      // Set current user
-      
-      dispatch(setCurrentUser(decoded));
-    })
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
-};
+//             const { token } = res.data;
+//             localStorage.setItem("jwtToken", token);
+//             // Set token to Auth header
+//             setAuthToken(token);
+//             // Decode token to get user data
+//             const decoded = jwt_decode(token);
+//             // Set current user
+             //dispatch(setCurrentUser(decoded));
+
+        // .catch(err =>
+        //     dispatch({
+        //         type: GET_ERRORS,
+        //         payload: err.response.data
+        //     })
+        // );
+
 
 export const setAllUsers = (users) => ({
     type: SET_ALL_USERS,

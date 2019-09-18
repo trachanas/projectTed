@@ -24,12 +24,13 @@ class CountrySelect extends Component {
         return (
             <div>
         
-            <select onChange={this.handleSelectChange}
+            <select defaultValue = {'Choose'} onChange={this.handleSelectChange}
                 id = "country" 
                 name = "country"                
                 className = "form-control"
                 placeholder = "Country"
-            > 
+            >
+                <option value="Choose" disabled>Choose a country...</option>
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Åland Islands">Åland Islands</option>
                 <option value="Albania">Albania</option>

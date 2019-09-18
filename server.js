@@ -27,12 +27,17 @@ database.once("open", function(callback) {
 });
 
   // Passport middleware
+passport.serializeUser((user, done) => done(null, user));
+passport.deserializeUser((user, done) => done(null, user));
+
 app.use(passport.initialize());
+app.use(passport.session());
+
 // Passport config
 require("./config/passport")(passport);
 // Routes
 app.use("/api/users", users);
-app.use("/api/datas", datas)
+app.use("/api/datas", datas);
 
 app.get("/api/products/all", (req, res) => {
   
@@ -55,11 +60,10 @@ app.post("/api/history/add", (req , res) =>
       node.save();
       //  History.insert({UserID: req.body.UserID, Products: [{productID: req.body.productID, timesViewed : 1}]})
       }else{
-      History.updateOne({UserID: req.body.UserID} , { "$set": { "Products.$.productID": req.body.productID }}, {upsert : true})
-
+        History.updateOne({UserID: req.body.UserID} , { "$set": { "Products.$.productID": req.body.productID }}, {upsert : true})
       }
     })
-)
+);
 
 app.post("/api/datas/search", (req , res) => {
 
@@ -69,15 +73,33 @@ app.post("/api/datas/search", (req , res) => {
       .reduce((acc, key) => 
         ({ ...acc, [key]: buildTerm(req.body[key])}),
         {});
-    console.log(query)
-  Products.find(query).then((data) => res.json(data));
-})
 
+  Products.find(query).then((data) => res.json(data));
+});
 
 app.post("/api/datas/addBid", (req , res) => {
-  console.log(req.body);
-})
 
+    const newBid = new Data({
+        ItemID: req.body.ItemID,
+        Name:   req.body.Name,
+        Category: req.body.Category,
+        Currently: req.body.Currently,
+        First_Bid: req.body.First_Bid,
+        Buy_Price: req.body.Buy_Price,
+        Number_of_Bids: req.body.Number_of_Bids,
+        Bids: [],
+        Location: req.body.Location,
+        Latitude: req.body.Latitude,
+        Longitude:  req.body.Longitude,
+        Country: req.body.Country,
+        Started: req.body.Started,
+        Ends: req.body.Ends,
+        Seller: req.body.Seller,
+        Description: req.body.Description
+    })
+
+    newBid.save().then((r) => res.json(r));
+});
 
 app.delete("/api/users/delete/:id", (req , res) => {
   const id = req.params.id;

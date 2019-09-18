@@ -16,6 +16,8 @@ export const addToHistory = (item) => {
     axios.post("/api/history/add", item);
 }
 
+
+
 export const addBid = (newBid , history) => dispatch => {    
     axios.post("/api/datas/addBid", newBid).then(() => history.push("/welcomePage"));
 }

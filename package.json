@@ -39,6 +39,7 @@
     "react-dom": "^16.8.6",
     "react-leaflet": "^2.4.0",
     "react-material-ui-form-validator": "^2.0.9",
+    "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "react-table": "^6.10.0",
