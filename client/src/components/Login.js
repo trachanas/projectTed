@@ -96,7 +96,7 @@ class Login extends Component {
                         <Button
                             onClick = {this.onSubmit}
                             variant = "primary">
-                            Submit
+                            Login
                         </Button>
                     </Col>
                     <Col>
@@ -120,7 +120,7 @@ const decSignForm = {
     padding: "10px",
     marginLeft: "auto",
     marginRight: "auto",
-    width: "40%",
+    width: "30%",
 }
 
 // const errorStyle = {

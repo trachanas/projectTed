@@ -11,7 +11,8 @@ import OpenMap from './components/OpenMap.js'
 import RequestWaiting from './components/RequestWaiting.js'
 import AdvancedSearch from './components/AdvancedSearch.js'
 import SearchResults from './components/SearchResults.js'
-import errorPage from './components/errorPage.js'
+import Logout from "./components/Logout";
+import ErrorPage from './components/ErrorPage.js'
 
 
 import Admin from './components/Admin.js';
@@ -44,8 +45,8 @@ class App extends Component {
             <Route exact path = "/requestWaiting" component = {RequestWaiting} />
             <Route exact path = "/advancedSearch" component = {AdvancedSearch} />
             <Route exact path = "/searchResults" component = {SearchResults} />
-
-            <Route component = {errorPage} />
+            <Route exact path = "/logout" component={Logout} />
+            <Route component = {ErrorPage} />
           </Switch>
 
         {/* <Footer className = "footer">

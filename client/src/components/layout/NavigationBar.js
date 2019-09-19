@@ -8,7 +8,7 @@ import {  showActiveBids, searchText } from "../../actions/product-actions";
 import {  setUserInfo } from "../../actions/authActions";
 
 
-import { Navbar, Nav, Form, Button, FormControl, Dropdown } from 'react-bootstrap'
+import { Navbar, Nav, Form, Button,  Dropdown } from 'react-bootstrap'
 
 
 const NavigationBar = ({  item = {}, history, searchText, showActiveBids , user}) => {
@@ -24,10 +24,11 @@ const NavigationBar = ({  item = {}, history, searchText, showActiveBids , user}
 
     const handleAddBid = (user) => {
         history.push("/addBid");
-    }
+    };
 
     const handleClick = text => {
-        searchText({ Name: text});}
+        searchText({ Name: text});
+    };
 
     return (
         <div>
@@ -36,8 +37,8 @@ const NavigationBar = ({  item = {}, history, searchText, showActiveBids , user}
                <Nav className="mr-auto">
                {user.username ?
                 <div>
-                  {user.username}
-                  <Nav.Link href="/logout">logout</Nav.Link>
+                    <div style={{color : "#FFFFFFFF"}}>{user.username}</div>
+                  <Nav.Link href="/logout">Logout</Nav.Link>
                 </div>
                :
                 <>

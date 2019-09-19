@@ -7,10 +7,8 @@
     --mainYellow: #ffa400;
   }
   .decErrorPage {    
-    font-size: 120px;
-    font-family: 'Permanent Marker', cursive;
-    font-family: 'Bungee', cursive;
-    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100px;
+    font-family: 'Black Ops One', cursive;
     text-align: center;
     margin-top: 122px;
     padding: 10px;
@@ -41,6 +39,7 @@
   }
 
   .request {
+    font-family: 'Alfa Slab One', cursive;
     text-align: center;
     margin-top: 100px;
   }
