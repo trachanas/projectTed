@@ -110,21 +110,39 @@ app.delete("/api/users/delete/:id", (req , res) => {
 
 app.put("/api/users/accept/:id", (req , res) => {
   const id = req.params.id;
-  Users.updateOne({_id : id} , { $set: {isAccepted: true}})
+  Users.updateOne({_id : id} , { $set: {isAccepted: true}}).then(res => console.log(res))
 })
 
-app.put("/api/datas/update" , (req , res) => {
-    const query = Object.keys(req.body)
-    console.log(query.toString());
-    console.log(query);
-  
-    //database.collection("datas").findOneAndUpdate({ItemID: query.toString()}, { $set : {Name : "aek"}})
-}
-
-)
-//csapp.put('/quotes', (req, res) => {  db.collection('quotes')  .findOneAndUpdate({name: 'Yoda'}, {    $set: {      name: req.body.name,      quote: req.body.quote    }  }, {    sort: {_id: -1},    upsert: true  }, (err, result) => {    if (err) return res.send(err)    res.send(result)  })})
 
 
+
+app.get("/api/users/getUser/:user", (req , res) => {
+    Users.findOne({username: req.params.user}).then(user => res.json(user))
+})
+
+
+app.put("/api/datas/update/:id" , (req , res) => {
+    console.log(req.body);
+    console.log(req.params.id);
+    console.log()
+    const { Location, Country, Rating, UserID, Amount, Time} = req.body.Bid;
+    database.collection("datas").findOneAndUpdate({ItemID: req.params.id}, { $push: {Bids : {
+        Location: req.body.Bid[0].Location,
+        Country: req.body.Bid[0].Country,
+        Rating: req.body.Bid[0].Rating,
+        UserID: req.body.Bid[0].UserID,
+        Amount: req.body.Bid[0].Amount,
+        Time:   req.body.Bid[0].Time
+    }}})
+});
+
+
+// $push: {
+//     myarray: {
+//         userId: ObjectId("570ca5e48dbe673802c2d035"),
+//             point: 10
+//     }
+// }
 
 const port = process.env.PORT || 6000; // process.env.port is Heroku's port if you choose to deploy the app there
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));

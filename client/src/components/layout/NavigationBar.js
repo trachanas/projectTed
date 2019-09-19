@@ -18,18 +18,17 @@ const NavigationBar = ({  item = {}, history, searchText, showActiveBids , user}
       history.push("/showActiveBids");
     };
 
-    console.log(user)
     const [inputText , setValue] = useState("");
 
     const handleInput = ({target: {value}}) => setValue(value);
 
     const handleAddBid = (user) => {
-        console.log("1111 " + user.username);
-
         history.push("/addBid");
     }
 
-    const handleClick = text => searchText({ Name: text});
+    const handleClick = text => {
+        searchText({ Name: text});}
+
     return (
         <div>
             <Navbar bg = "dark" variant = "dark">
@@ -53,13 +52,13 @@ const NavigationBar = ({  item = {}, history, searchText, showActiveBids , user}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item disabled = {!user} onClick = {() => handleAddBid(user)}>Add Bid</Dropdown.Item>
-                  {user && <Dropdown.Item  >Active Bids</Dropdown.Item>}
+                  {user && <Dropdown.Item  onClick = {() => showBids(item)}>Active Bids</Dropdown.Item>}
                   <Dropdown.Item href = "/advancedSearch">Advanced Search</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
 
               <Form inline>
-                <FormControl onChange = {handleInput} value = {inputText} type="text" placeholder="Search" className="mr-sm-2"  />
+                <Form.Control onChange = {handleInput} value = {inputText} type="text" placeholder="Search" className="mr-sm-2"  />
                 <Button  onClick = {() => handleClick(inputText)} variant="outline-info">Search</Button>
               </Form>
             </Navbar>

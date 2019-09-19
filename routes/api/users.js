@@ -39,6 +39,7 @@ User.findOne({ email: req.body.email }).then(user => {
         zipCode: req.body.zipCode,
         vatNumber: req.body.vatNumber,
         creditCardNumber: req.body.creditCardNumber,
+        rating: req.body.rating,
         isAccepted: req.body.isAccepted
       });
       console.log(newUser)
@@ -59,6 +60,9 @@ User.findOne({ email: req.body.email }).then(user => {
 router.get('/all', (req, res) => {
     User.find().then((users) => res.json(users));
 });
+
+
+
 
 // @route POST api/users/login
 // @desc Login user and return JWT token

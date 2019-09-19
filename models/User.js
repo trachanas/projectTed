@@ -58,6 +58,10 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  rating: {
+    type: String,
+    required: false
+  },
   isAccepted: {
     type: Boolean,
     required: true

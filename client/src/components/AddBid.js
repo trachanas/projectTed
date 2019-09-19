@@ -85,7 +85,7 @@ class AddBid extends Component {
             Currently:  "$" + this.state.Currently,
             Buy_Price:  "$" + this.state.Buy_Price,
             First_Bid:  "$" + this.state.First_Bid,
-            Number_of_Bids:     this.state.Number_of_Bids,
+            Number_of_Bids:     "0",
             Location:   this.state.Location,
             Latitude:   lat,
             Longitude:  lng,
@@ -93,7 +93,7 @@ class AddBid extends Component {
             Started:    new Date(),
             Ends:       addDays(Math.floor((Math.random() * 10) + 1)),
             Seller:     {UserID: this.props.user.username,
-                        Rating: Math.floor((Math.random() * 300) + 1)
+                        Rating: this.props.user.rating
             },
             Description:    this.state.Description
         };
@@ -186,18 +186,6 @@ class AddBid extends Component {
                         </InputGroup>
 
                     </Form.Group>
-                    <Form.Group>
-                        <Form.Label><strong>Number of Bids</strong></Form.Label>
-                        <Form.Control
-                            name = "buy_price"
-                            value = {this.state.Number_of_Bids}
-                            onChange = {this.onChange}
-                            id = "Number_of_Bids"
-                            type = "text"
-                            placeholder = "Number of Bids"    
-                        />
-                    </Form.Group>
-
 
                     <Form.Group>
                         <Form.Label><strong>Location</strong></Form.Label>

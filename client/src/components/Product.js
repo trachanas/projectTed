@@ -1,25 +1,26 @@
-import React  from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import '../App.css';
-import { Button } from 'react-bootstrap';
+import {Button, Form, Accordion, Card, InputGroup} from 'react-bootstrap';
 import { Tab, Tabs } from 'react-bootstrap-tabs';
 import { setCoords , updateElement} from "../actions/product-actions";
 
 
-const Product = ({  item = {}, history, setCoords  }) => {
-    //console.log(item);
-    
-    var categories  = [];
+const Product = ({  item = {}, history, setCoords, user, updateElement  }) => {
+
+    var categories = [];
     var bids = [];
     var bid = {};
-    console.log(item);
+
     const handleClick = () => {
-        setCoords(coords)
+        setCoords(coords);
         history.push("/openMap");
     };
 
-    const update = (id) => {
-        updateElement(id);
+    const [amount, setValue] = useState("");
+
+    const handleInput = ({target: {value}}) => {
+        setValue(value);
     };
 
     item.Category.forEach(element => {
@@ -36,28 +37,44 @@ const Product = ({  item = {}, history, setCoords  }) => {
             Time: element.Time,
             UserID: element.UserID,
             Rating: element.Rating
-        }
+        };
         bids.push(bid);
     });
-    
+
+    const handleForm = () => {
+
+        const Bid = [{
+            Rating: user.rating,
+            UserID: user.username,
+            Location: user.city,
+            Country: user.country,
+            Time: new Date(),
+            Amount: amount
+        }];
+
+        const newBid = {
+            Bid: Bid,
+            ItemID: item.ItemID
+        }
+
+        updateElement(newBid);
+    };
 
     const enabledButton = item.Longitude !== "0" && item.Latitude !== "0"
-    
-    console.log(item)
-    var seller = {};
+
+    let seller = {};
     item.Seller.forEach(e => {
         seller = {
             Rating: e.Rating,
             UserID: e.UserID
         }
-    })
+    });
 
     const coords = {
         Latitude: item.Latitude,
         Longitude: item.Longitude
-    }
+    };
 
-    
     let bidLength ;
     if (bids.length === 0){
         bidLength = 0;
@@ -77,22 +94,49 @@ const Product = ({  item = {}, history, setCoords  }) => {
                         <li><strong>Bid started: </strong> {item.Started}</li>
                         <li><strong>Bid ends: </strong> {item.Ends}</li>
                         <li><strong>Country: </strong> {item.Country}</li>
-                        <li><strong>Location: </strong>{item.Location}</li>  
-                        <li><strong>Position: </strong>{item.Latitude} , {item.Longitude}</li>  
-                        <li><strong>Seller: </strong>UserID: {seller.UserID} , Rating: {seller.Rating}</li>                 
+                        <li><strong>Location: </strong>{item.Location}</li>
+                        <li><strong>Position: </strong>{item.Latitude} , {item.Longitude}</li>
+                        <li><strong>Seller: </strong>UserID: {seller.UserID} , Rating: {seller.Rating}</li>
                     </ul>
 
-                    <Button   disabled = {!enabledButton} onClick={() => handleClick(coords)}>Open Map</Button>
+                    <Button disabled = {!enabledButton} onClick={() => handleClick(coords)}>Open Map</Button>
+                    <Accordion style = {decSignForm} defaultActiveKey="1">
+                        <Card>
+                            <Card.Header>
+                                <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                    Deposit Bid
+                                </Accordion.Toggle>
+                            </Card.Header>
+                            <Accordion.Collapse eventKey="0">
+                                <Card.Body>
+                                    <Form>
+                                        <Form.Group>
+                                            <InputGroup>
+                                                <InputGroup.Prepend>
+                                                    <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
+                                                </InputGroup.Prepend>
+                                            <Form.Control
+                                                name = "amount"
+                                                value = {amount}
+                                                onChange = {handleInput}
+                                                id = "amount"
+                                                type = "text"
+                                                placeholder = "How much do you want to pay?"
+                                            />
+                                            </InputGroup>
+                                        </Form.Group>
+                                    </Form>
 
+                                    <Button onClick = {() => handleForm()}>Deposit here</Button>
+
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                    </Accordion>
                 </Tab>
-                
+
                 <Tab label = "Description">{item.Description}</Tab>
-                <Tab label = "Deposit Bid">
 
-                    <Button onClick = {() => update(item.ItemID)} >Deposit Button</Button>
-
-
-                </Tab>
                 <Tab label = "Bid Details"> {
                     bidLength === 0 ? <li key = "0">None</li> : bids.map(e=>(
                         <li key = {e.Time}>
@@ -104,12 +148,27 @@ const Product = ({  item = {}, history, setCoords  }) => {
     )
 }
 
-const mapStateToProps = state =>  ({item : state.products.item})
+const mapStateToProps = state =>  ({item : state.products.item,
+                                    user : state.auth.user
+})
 
 const mapDispatchToProps = { setCoords, updateElement };
 
 
 //const mapStateToProps = (state) => ({ products: state.products.data });
+
+const decSignForm = {
+    fontSize: "15px",
+    marginTop: "20px",
+    padding: "15px 15px 150px 15px",
+    marginLeft: "auto",
+    marginRight: "auto",
+    width: "40%"
+}
+
+const decPage = {
+    borderBottom: "1px solid grey"
+}
 
 export default connect(mapStateToProps,  mapDispatchToProps)(Product);
 
