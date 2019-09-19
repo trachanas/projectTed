@@ -130,6 +130,8 @@ app.put("/api/datas/update/:id" , (req , res) => {
         Amount: Amount,
         Time:   Time
     }}})
+    database.collection("datas").findOneAndUpdate({ItemID: req.params.id},{ $inc: { Number_of_Bids : 1 }})
+
 });
 
 

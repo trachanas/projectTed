@@ -66,7 +66,7 @@ const formatBid =
 		},
 		Time: { _text: Time },
 		Amount: { _text: Amount },
-	}) => ({ Location, Country, Rating, UserID, Time, Amount});
+	}) => ({ Location, Country, Rating, UserID, Time, Amount: convertStringToNumber(Amount)});
 
 const formatBids = (item = []) => Array.isArray(item) ? item.map(formatBid) : [formatBid(item)];
 
@@ -151,9 +151,9 @@ json.Items.Item.forEach((item) => {
   })
 
 
-  // productData.save(function(err){
-  //   if (err) throw err;
-  // })
+  productData.save(function(err){
+    if (err) throw err;
+  })
 i++;
 
 });

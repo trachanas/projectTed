@@ -71,7 +71,7 @@ class Register extends Component {
         zipCode: this.state.zipCode,
         vatNumber: this.state.vatNumber,
         creditCardNumber: this.state.creditCardNumber,
-        rating: Math.floor((Math.random() * 300) + 100),
+        rating: Math.floor((Math.random() * 1000) + 100),
         isAccepted: this.state.isAccepted
     };
       this.props.registerUser(newUser, this.props.history);
