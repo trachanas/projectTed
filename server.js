@@ -48,22 +48,22 @@ app.get("/api/products/all", (req, res) => {
 
 const buildTerm = (term) => new RegExp(`\\.*${term}\\.*`);
 
-app.post("/api/history/add", (req , res) =>
-    History.findOne({UserID: req.body.UserID}).then((res) => {
-      if (!res){
-
-
-      const node = new History({
-        UserID: req.body.UserID,
-        Products: [{productID: req.body.productID, timesViewed : 1}]
-      })
-      node.save();
-      //  History.insert({UserID: req.body.UserID, Products: [{productID: req.body.productID, timesViewed : 1}]})
-      }else{
-        History.updateOne({UserID: req.body.UserID} , { "$set": { "Products.$.productID": req.body.productID }}, {upsert : true})
-      }
-    })
-);
+// app.post("/api/history/add", (req , res) =>
+//     History.findOne({UserID: req.body.UserID}).then((res) => {
+//       if (!res){
+//
+//
+//       const node = new History({
+//         UserID: req.body.UserID,
+//         Products: [{productID: req.body.productID, timesViewed : 1}]
+//       })
+//       node.save();
+//       //  History.insert({UserID: req.body.UserID, Products: [{productID: req.body.productID, timesViewed : 1}]})
+//       }else{
+//         History.updateOne({UserID: req.body.UserID} , { "$set": { "Products.$.productID": req.body.productID }}, {upsert : true})
+//       }
+//     })
+// );
 
 app.post("/api/datas/search", (req , res) => {
 
@@ -106,43 +106,33 @@ app.delete("/api/users/delete/:id", (req , res) => {
   Users.deleteOne({ _id: id }).then(() => {
       res.json({ ok: true });
   });
-})
+});
 
 app.put("/api/users/accept/:id", (req , res) => {
   const id = req.params.id;
   Users.updateOne({_id : id} , { $set: {isAccepted: true}}).then(res => console.log(res))
-})
-
-
-
+});
 
 app.get("/api/users/getUser/:user", (req , res) => {
     Users.findOne({username: req.params.user}).then(user => res.json(user))
-})
+});
 
 
 app.put("/api/datas/update/:id" , (req , res) => {
-    console.log(req.body);
-    console.log(req.params.id);
-    console.log()
-    const { Location, Country, Rating, UserID, Amount, Time} = req.body.Bid;
+
+    const { Location, Country, Rating, UserID, Amount, Time} = req.body.Bid[0];
+
     database.collection("datas").findOneAndUpdate({ItemID: req.params.id}, { $push: {Bids : {
-        Location: req.body.Bid[0].Location,
-        Country: req.body.Bid[0].Country,
-        Rating: req.body.Bid[0].Rating,
-        UserID: req.body.Bid[0].UserID,
-        Amount: req.body.Bid[0].Amount,
-        Time:   req.body.Bid[0].Time
+        Location: Location,
+        Country: Country,
+        Rating: Rating,
+        UserID: UserID,
+        Amount: Amount,
+        Time:   Time
     }}})
 });
 
 
-// $push: {
-//     myarray: {
-//         userId: ObjectId("570ca5e48dbe673802c2d035"),
-//             point: 10
-//     }
-// }
 
 const port = process.env.PORT || 6000; // process.env.port is Heroku's port if you choose to deploy the app there
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));

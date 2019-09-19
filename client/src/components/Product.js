@@ -27,7 +27,7 @@ const Product = ({  item = {}, history, setCoords, user, updateElement  }) => {
         categories.push(element)
     });
 
-    var buyPrice = item.Buy_Price === undefined ? "None" : item.Buy_Price;
+    var buyPrice = item.Buy_Price === undefined ? "None" : "$ " + item.Buy_Price;
 
     item.Bids.forEach(element => {
         bid = {
@@ -90,7 +90,8 @@ const Product = ({  item = {}, history, setCoords, user, updateElement  }) => {
                         <li><strong>Item ID: </strong>{item.ItemID}</li>
                         <li><strong>Number of bids: </strong>{item.Number_of_Bids}</li>
                         <li><strong>Buy Price: </strong>{buyPrice}</li>
-                        <li><strong>Current price: </strong> {item.Currently}</li>
+                        <li><strong>First Bid: </strong>$ {item.First_Bid}</li>
+                        <li><strong>Current price: </strong>$ {item.Currently}</li>
                         <li><strong>Bid started: </strong> {item.Started}</li>
                         <li><strong>Bid ends: </strong> {item.Ends}</li>
                         <li><strong>Country: </strong> {item.Country}</li>

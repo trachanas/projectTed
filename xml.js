@@ -32,9 +32,9 @@ var DataSchema = new Schema({
     ItemID: String,
     Name: String,
     Category: [],
-    Currently: String,
-    First_Bid: String,
-    Number_of_Bids: String,
+    Currently: Number,
+    First_Bid: Number,
+    Number_of_Bids: Number,
     Bids: [],
     Location: String,
     Longitude: String,
@@ -48,6 +48,13 @@ var DataSchema = new Schema({
 
 let  i = 0;
 
+const convertStringToNumber = (string) => {
+    string = string.replace("$","");
+    return parseFloat(string);
+}
+
+
+
 var data = mongoose.model("data",DataSchema);
 
 const formatBid = 
@@ -59,33 +66,34 @@ const formatBid =
 		},
 		Time: { _text: Time },
 		Amount: { _text: Amount },
-	}) => ({ Location, Country, Rating, UserID, Time, Amount });
+	}) => ({ Location, Country, Rating, UserID, Time, Amount});
 
 const formatBids = (item = []) => Array.isArray(item) ? item.map(formatBid) : [formatBid(item)];
 
 
 json.Items.Item.forEach((item) => {
-       
-
     //console.log(item)
 
     var longitude =  item.Location._attributes === undefined ? "0" : item.Location._attributes.Longitude;
     var latitude = item.Location._attributes === undefined ? "0" : item.Location._attributes.Latitude;
 
-    // if( Latitude !== "0" && Longitude !== "0"){
-    //     console.log(Longitude , Latitude);
-    // }
 
-    var buy = item["Buy_Price"] === undefined ? "0" : item["Buy_Price"]["_text"]
 
+    var buy = item["Buy_Price"] === undefined ? 0 : convertStringToNumber(item["Buy_Price"]._text);
+
+    var currently = convertStringToNumber(item["Currently"]._text);
+    var firstBid = convertStringToNumber(item["First_Bid"]._text);
+    var numberOfBids = convertStringToNumber(item["Number_of_Bids"]._text);
+
+    console.log(currently + " " + firstBid);
 	const { 
 		_attributes: { ItemID },
         Name: { _text: Name },
         Category,
-        Currently: { _text: Currently},
+        Currently,
         Buy_Price,
-        First_Bid: { _text: First_Bid },
-        Number_of_Bids: { _text: Number_of_Bids },
+        First_Bid,
+        Number_of_Bids,
         Bids,
         Location: { _text: Location},
         Latitude,
@@ -102,10 +110,10 @@ json.Items.Item.forEach((item) => {
 		ItemID,
         Name,
         Category: Category.map(({ _text }) => _text),
-        Currently,
+        Currently: currently,
         Buy_Price: buy,
-		First_Bid,
-        Number_of_Bids,
+		First_Bid: firstBid,
+        Number_of_Bids: numberOfBids,
         Bids: formatBids(Bids.Bid),
         Location,
         Latitude: latitude,
@@ -121,7 +129,7 @@ json.Items.Item.forEach((item) => {
 	};
 
 
-// console.log(newItem);
+ console.log(newItem);
 
     productData = new data({
         ItemID: newItem.ItemID,
@@ -142,12 +150,10 @@ json.Items.Item.forEach((item) => {
 
   })
 
-//   let a = newItem.First_Bid.replace("$","")
-//   console.log(a)
 
-//   productData.save(function(err){
-//     if (err) throw err;
-//   })
+  // productData.save(function(err){
+  //   if (err) throw err;
+  // })
 i++;
 
 });
