@@ -167,9 +167,9 @@ const decSignForm = {
     width: "40%"
 }
 
-const decPage = {
-    borderBottom: "1px solid grey"
-}
+// const decPage = {
+//     borderBottom: "1px solid grey"
+// }
 
 export default connect(mapStateToProps,  mapDispatchToProps)(Product);
 

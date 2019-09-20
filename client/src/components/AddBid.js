@@ -6,6 +6,7 @@ import { addBid } from '../actions/product-actions'
 import { withRouter} from "react-router-dom"
 import GetCoordsFromMap from "./GetCoordsFromMap";
 import CountrySelect from "./CountrySelect";
+import PropTypes from "prop-types";
 
 function addDays( days) {
     var result = new Date();
@@ -82,10 +83,10 @@ class AddBid extends Component {
             ItemID: uuidv1(),
             Name:   this.state.Name,
             Category:   this.state.Category,
-            Currently:  "$" + this.state.Currently,
-            Buy_Price:  "$" + this.state.Buy_Price,
-            First_Bid:  "$" + this.state.First_Bid,
-            Number_of_Bids:     "0",
+            Currently:  this.state.Currently,
+            Buy_Price:  this.state.Buy_Price,
+            First_Bid:  this.state.First_Bid,
+            Number_of_Bids: 0,
             Location:   this.state.Location,
             Latitude:   lat,
             Longitude:  lng,
@@ -107,6 +108,9 @@ class AddBid extends Component {
         this.setState(this.initialState)
     };
     render() {
+
+        let errors = this.props.errors;
+
         return (
             <div style = {decPage}>
 
@@ -121,6 +125,9 @@ class AddBid extends Component {
                             type = "text"
                             placeholder = "Product Name"   
                         />
+                        {errors.Name &&
+                        <span style={errorStyle}>{errors.Name}</span>
+                        }
                     </Form.Group>
 
                     <Form.Group>
@@ -133,6 +140,9 @@ class AddBid extends Component {
                             type = "text"
                             placeholder = "Category"   
                         />
+                        {errors.Category &&
+                        <span style={errorStyle}>{errors.Category}</span>
+                        }
                     </Form.Group>
 
                     <Form.Group>
@@ -148,7 +158,11 @@ class AddBid extends Component {
                             id = "Currently"
                             type = "text"
                         />
+
                         </InputGroup>
+                        {errors.Currently &&
+                        <span style={errorStyle}>{errors.Currently}</span>
+                        }
                     </Form.Group>
 
 
@@ -165,7 +179,11 @@ class AddBid extends Component {
                                 id = "First_Bid"
                                 type = "text"
                             />
+
                         </InputGroup>
+                        {errors.First_Bid &&
+                        <span style={errorStyle}>{errors.First_Bid}</span>
+                        }
                     </Form.Group>
 
                     <Form.Group>
@@ -177,12 +195,11 @@ class AddBid extends Component {
                         <Form.Control
                             name = "buy_price"
                             value = {this.state.Buy_Price}
-                            aria-describedby="inputGroupPrepend"
-
                             onChange = {this.onChange}
                             id = "Buy_Price"
                             type = "text"
                         />
+
                         </InputGroup>
 
                     </Form.Group>
@@ -197,6 +214,9 @@ class AddBid extends Component {
                             type = "text"
                             placeholder = "Location"
                         />
+                        {errors.Location &&
+                        <span style={errorStyle}>{errors.Location}</span>
+                        }
                     </Form.Group>
                     <label><strong>Select your location on the map</strong></label>
                     <div>
@@ -206,6 +226,9 @@ class AddBid extends Component {
                     <Form.Group>
                         <Form.Label><strong>Country</strong></Form.Label>
                         <CountrySelect call = {this.callBack}/>
+                        {errors.Country &&
+                        <span style={errorStyle}>{errors.Country}</span>
+                        }
                     </Form.Group>
 
                     <Form.Group>
@@ -220,6 +243,10 @@ class AddBid extends Component {
                             type = "text"
                             placeholder = "Enter your description..."
                         />
+                        {errors.Description &&
+                        <span style={errorStyle}>{errors.Description}</span>
+                        }
+
                     </Form.Group>
 
                     <Row>
@@ -259,14 +286,25 @@ const decSignForm = {
     width: "40%"
 }
 
+const errorStyle = {
+    fontFamily : "Manjari, sans-serif",
+    color: "#ff0000"
+}
+
+
 const decPage = {
     borderBottom: "1px solid grey"
 }
 
 const mapStateToProps = state => ({
     user: state.auth.user,
-    coords: state.products.coords
+    coords: state.products.coords,
+    errors: state.errors
+
 });
 
-
+AddBid.propTypes = {
+    addBid: PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired
+};
 export default connect(mapStateToProps, {addBid}) (withRouter(AddBid));

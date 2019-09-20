@@ -24,16 +24,28 @@ module.exports = validateAddBid = data => {
         errors.ItemID = "ItemID field is required!";
     }
 
+    if (Validator.isEmpty(data.Name)) {
+        errors.Name = "Name field is required!";
+    }
+
     if (Validator.isEmpty(data.Category)) {
         errors.Category = "Category field is required!";
     }
 
     if (Validator.isEmpty(data.Currently)) {
         errors.Currently = "Currently field is required!";
+    } else if(!Validator.isNumeric(data.Currently)){
+        errors.Currently = "Currently field must contain only digits!";
+    } else if (data.Currently <= 0){
+        errors.Currently = "Currently must be a positive number!";
     }
     
     if (Validator.isEmpty(data.First_Bid)) {
-        errors.First_Bid = "First_Bid field is required!";
+        errors.First_Bid = "First Bid field is required!";
+    }else if(!Validator.isNumeric(data.First_Bid)){
+        errors.First_Bid = "First Bid field must contain only digits!";
+    } else if (data.Currently <= 0){
+        errors.First_Bid = "First Bid must be a positive number!";
     }
 
     if (Validator.isEmpty(data.Location)) {
@@ -51,6 +63,7 @@ module.exports = validateAddBid = data => {
     if (Validator.isEmpty(data.Ends)) {
         errors.Ends = "Ends field is required!";
     }
+
 
     // if (Validator.isEmpty(data.Seller)) {
     //     errors.Seller = "Seller field is required!";

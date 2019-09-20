@@ -17,7 +17,7 @@ const WelcomePage = ({ fetchProd, setOneProduct, showActiveBids, products = [], 
         history.push("/product");
     };
 
-    var myMoment  = moment("Sun Dec 16 2001 18:27:30 GMT+0200");
+    var myMoment  = moment(Date());
 
     let activeBids = []
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Form, Col, Button, Row} from 'react-bootstrap'
+import {Form, Col, Button, Row, } from 'react-bootstrap'
 import CountrySelect from './CountrySelect'
 import { withRouter} from "react-router-dom"
 import PropTypes from "prop-types";
@@ -7,8 +7,8 @@ import { connect } from "react-redux";
 import { registerUser } from "../actions/authActions";
 
 
-
 class Register extends Component {
+
 
     constructor (){
         super();
@@ -84,24 +84,31 @@ class Register extends Component {
     
 
     render() {
+        let errors = this.props.errors;
 
        // const { errors } = this.state;
         return (
             <div style = {decPage}>
             <Form onSubmit = {this.onSubmit} style = {decSignForm}>
-                <Form.Group > 
-                    
+                <Form.Group >
+
+
                     <Form.Label><strong>Username</strong></Form.Label>
                     <Form.Control
                         name = "username"
                         value = {this.state.username}
                         onChange = {this.onChange}
                         id = "username"
-                        type = "text" 
-                        placeholder = "Username" />
+                        type = "text"
+                        placeholder = "Username"
+                    />
+                    {errors.username &&
+                    <span style={errorStyle}>{errors.username}</span>
+                    }
                     <Form.Text className="text-muted">
                         Username must contain at least 6 characters!
                     </Form.Text>
+
                 </Form.Group>
 
         
@@ -118,8 +125,11 @@ class Register extends Component {
                                 type="password" 
                                 placeholder="Password" 
                             />
+                            {errors.password &&
+                            <span style={errorStyle}>{errors.password}</span>
+                            }
                             <Form.Text className="text-muted">
-                                Password must contain at least 6 characters, one digit and one special character!
+                                Password must contain at least 6 characters and one digit!
                             </Form.Text>
                         </Form.Group>
                     </Col>
@@ -135,6 +145,9 @@ class Register extends Component {
                                 type = "password" 
                                 placeholder = "Password" 
                             />
+                            {errors.passwordConfirm &&
+                            <span style={errorStyle}>{errors.passwordConfirm}</span>
+                            }
                         </Form.Group>
                     </Col>
                 </Form.Row>
@@ -153,6 +166,9 @@ class Register extends Component {
                             type = "text"
                             placeholder="Surname"
                         />
+                            {errors.surname &&
+                            <span style={errorStyle}>{errors.surname}</span>
+                            }
                         </Form.Group>
                     </Col>
                     <Col>
@@ -167,6 +183,10 @@ class Register extends Component {
                             type = "text"
                             placeholder = "Name"
                         />
+
+                        {errors.name &&
+                            <span style={errorStyle}>{errors.name}</span>
+                        }
                         </Form.Group>
                     </Col>
                 </Form.Row>
@@ -182,7 +202,11 @@ class Register extends Component {
                                     onChange = {this.onChange}
                                     id = "telephoneNumber"
                                     type = "text"
-                                    placeholder="Phone Number"/>
+                                    placeholder="Phone Number"
+                        />
+                            {errors.telephoneNumber &&
+                            <span style={errorStyle}>{errors.telephoneNumber}</span>
+                            }
                         </Form.Group>
                     </Col>
 
@@ -195,7 +219,11 @@ class Register extends Component {
                                     onChange = {this.onChange}
                                     id = "email"
                                     type = "text"
-                                    placeholder="Email"/>
+                                    placeholder="Email"
+                        />
+                            {errors.email &&
+                            <span style={errorStyle}>{errors.email}</span>
+                            }
                         </Form.Group>
                     </Col>
 
@@ -214,7 +242,11 @@ class Register extends Component {
                                     onChange = {this.onChange}
                                     id = "city"
                                     type = "text"
-                                    placeholder="City"/>
+                                    placeholder="City"
+                                />
+                            {errors.city &&
+                            <span style={errorStyle}>{errors.city}</span>
+                            }
                         </Form.Group>
                     </Col>
 
@@ -227,7 +259,11 @@ class Register extends Component {
                                     onChange = {this.onChange}
                                     id = "zipCode"
                                     type = "text"
-                                    placeholder="Zip Code"/>
+                                    placeholder="Zip Code"
+                                />
+                            {errors.zipCode &&
+                            <span style={errorStyle}>{errors.zipCode}</span>
+                            }
                         </Form.Group>
                     </Col>
                 </Form.Row>
@@ -238,7 +274,9 @@ class Register extends Component {
                 <Form.Group>
                         <Form.Label>Country</Form.Label>
                                 <CountrySelect call = {this.callBack}/>
-
+                                {errors.country &&
+                                <span style={errorStyle}>{errors.country}</span>
+                                }
                         </Form.Group>
                         </Col>
 
@@ -255,8 +293,11 @@ class Register extends Component {
                                     onChange = {this.onChange}
                                     id = "vatNumber"
                                     type = "text"
-                                    placeholder="VAT Number"/>
-
+                                    placeholder="VAT Number"
+                                />
+                            {errors.vatNumber &&
+                            <span style={errorStyle}>{errors.vatNumber}</span>
+                            }
                         </Form.Group>
                     </Col>
 
@@ -269,7 +310,11 @@ class Register extends Component {
                                     onChange = {this.onChange}
                                     id = "creditCardNumber"
                                     type = "text"
-                                    placeholder="Credit Card Number"/>
+                                    placeholder="Credit Card Number"
+                                />
+                            {errors.creditCardNumber &&
+                            <span style={errorStyle}>{errors.creditCardNumber}</span>
+                            }
                         </Form.Group>
                     </Col>
                 </Form.Row>
@@ -311,10 +356,10 @@ const decPage = {
     borderBottom: "1px solid grey"
 }
 
-// const errorStyle = {
-//     fontFamily : "Helvetica Neue",
-//     color: "#ff0000"
-// }
+const errorStyle = {
+    fontFamily : "Manjari, sans-serif",
+    color: "#ff0000"
+}
 
 Register.propTypes = {
     registerUser: PropTypes.func.isRequired,

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { SET_PRODUCTS, SET_ONE_PRODUCT, SHOW_ACTIVE_BIDS, SET_COORDS } from "./types";
+import {SET_PRODUCTS, SET_ONE_PRODUCT, SHOW_ACTIVE_BIDS, SET_COORDS, GET_ERRORS} from "./types";
 
 export const setProducts = (payload) => ({ type: SET_PRODUCTS, payload });
 
@@ -19,7 +19,13 @@ export const addToHistory = (item) => {
 
 
 export const addBid = (newBid , history) => dispatch => {    
-    axios.post("/api/datas/addBid", newBid).then(() => history.push("/welcomePage"));
+    axios.post("/api/datas/addBid", newBid).then(() => history.push("/welcomePage"))
+        .catch(err =>
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        );;
 }
 
 export const updateElement = (updateInfo) => dispatch => {

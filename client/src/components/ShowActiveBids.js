@@ -8,7 +8,6 @@ import {  ListGroup } from 'react-bootstrap'
 
 const ShowActiveBids = ({  item = {} , setOneProduct, history }) => {
     console.log(item)
-    //props.item
 
     const handleClick = (item) => {
         setOneProduct(item);

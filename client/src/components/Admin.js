@@ -31,9 +31,7 @@ const Admin = ({ users, fetchAllUsers, deleteOne, acceptOne }) => {
             }
     }];
 
-    const handleClick = () => {
 
-    }
 
     useEffect(() => {
         fetchAllUsers();

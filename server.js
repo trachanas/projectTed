@@ -7,6 +7,8 @@ const datas = require("./routes/api/datas")
 const Products = require("./models/Products");
 const Users = require("./models/User")
 const History = require("./models/History");
+const validateAddBid = require("./validation/addBid");
+
 
 const app = express();
 // Bodyparser middleware
@@ -41,7 +43,7 @@ app.use("/api/datas", datas);
 
 app.get("/api/products/all", (req, res) => {
   
-  Products.aggregate([{ $limit: 100 }]).then((data) => {
+  Products.aggregate([{ $limit: 2000 }]).then((data) => {
     res.json( data );
   });
 });
@@ -78,6 +80,11 @@ app.post("/api/datas/search", (req , res) => {
 });
 
 app.post("/api/datas/addBid", (req , res) => {
+    const { errors, isValid } = validateAddBid(req.body);
+    // Check validation
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
 
     const newBid = new Data({
         ItemID: req.body.ItemID,
