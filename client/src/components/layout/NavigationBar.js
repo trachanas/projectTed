@@ -52,7 +52,7 @@ const NavigationBar = ({  item = {}, history, searchText, showActiveBids , user}
                   Bids
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item disabled = {!user} onClick = {() => handleAddBid(user)}>Add Bid</Dropdown.Item>
+                  <Dropdown.Item disabled = {!user.username} onClick = {() => handleAddBid(user)}>Add Bid</Dropdown.Item>
                   {user && <Dropdown.Item  onClick = {() => showBids(item)}>Active Bids</Dropdown.Item>}
                   <Dropdown.Item href = "/advancedSearch">Advanced Search</Dropdown.Item>
                 </Dropdown.Menu>

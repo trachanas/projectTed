@@ -44,22 +44,37 @@ export const fetchAllUsers = () => dispatch => {
 export const loginUser = (payload)  => dispatch => {
     //dispatch(setUserInfo(payload.userData));
     let isAdmin = false;
-
     const {username , password} = payload.userData;
 
     if (username === "ange_admin" && password === "123456"){
         isAdmin = true;
     }
+    let isAccepted
 
     axios.get("/api/users/getUser/" + username).then(res => {
-        console.log(res.data)
-        dispatch(setCurrentUser(res.data));
-    })
+        setTimeout(() => {
+            isAccepted = res.data.isAccepted;
+            res.data.isAccepted ? dispatch(setCurrentUser(res.data)) : console.log("");
+            if (isAdmin){
+                axios.post("/api/users/login", payload.userData).then(() => payload.history.push("/admin"))
+            } else if (!isAdmin && isAccepted){
+                axios.post("/api/users/login", payload.userData).then(() => payload.history.push("/welcomePage"))
+            } else if(!isAdmin && !isAccepted){
+                axios.post("/api/users/login", payload.userData).then(() => payload.history.push("/requestWaiting"))
+            }
+        }, 1000)
+    });
 
     // dispatch(setCurrentUser(payload.userData));
+    // setTimeout(() => {
+    //     if (Amount > current){
+    //         database.collection("datas").findOneAndUpdate({ItemID: req.params.id} , {$set : {Currently: Amount}})
+    //     }
+    //     console.log(current)
+    // }, 1000);
 
-    isAdmin ? axios.post("/api/users/login", payload.userData).then(() => payload.history.push("/admin"))
-        : axios.post("/api/users/login", payload.userData).then(() => payload.history.push("/welcomePage"))
+
+
 
 
 };

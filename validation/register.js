@@ -58,7 +58,7 @@ module.exports = function validateRegisterInput(data) {
   // Surname confirm
   if (Validator.isEmpty(data.surname)){
     errors.surname = "Surname field is required!";
-  } else if (Validator.isAlpha(data.surname)) {
+  } else if (!Validator.isAlpha(data.surname)) {
     errors.surname = "Surname must contain only letters!"
   }
 

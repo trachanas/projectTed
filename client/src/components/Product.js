@@ -102,10 +102,10 @@ const Product = ({  item = {}, history, setCoords, user, updateElement  }) => {
                     </ul>
 
                     <Button disabled = {!enabledButton} onClick={() => handleClick(coords)}>Open Map</Button>
-                    <Accordion style = {decSignForm} defaultActiveKey="1">
+                    {user.username && <Accordion style = {decSignForm} defaultActiveKey="1">
                         <Card>
                             <Card.Header>
-                                <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                <Accordion.Toggle as={Button} style = {{fontSize: "30px"}}variant="link" eventKey="0">
                                     Deposit Bid
                                 </Accordion.Toggle>
                             </Card.Header>
@@ -117,24 +117,23 @@ const Product = ({  item = {}, history, setCoords, user, updateElement  }) => {
                                                 <InputGroup.Prepend>
                                                     <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
                                                 </InputGroup.Prepend>
-                                            <Form.Control
-                                                name = "amount"
-                                                value = {amount}
-                                                onChange = {handleInput}
-                                                id = "amount"
-                                                type = "text"
-                                                placeholder = "How much do you want to pay?"
-                                            />
+                                                <Form.Control
+                                                    name = "amount"
+                                                    value = {amount}
+                                                    onChange = {handleInput}
+                                                    id = "amount"
+                                                    type = "text"
+                                                    placeholder = "How much do you want to pay?"
+                                                />
                                             </InputGroup>
                                         </Form.Group>
                                     </Form>
 
-                                    <Button onClick = {() => handleForm()}>Deposit here</Button>
-
+                                    <Button  onClick = {() => handleForm()}>Deposit here</Button>
                                 </Card.Body>
                             </Accordion.Collapse>
                         </Card>
-                    </Accordion>
+                    </Accordion>}
                 </Tab>
 
                 <Tab label = "Description">{item.Description}</Tab>
@@ -160,10 +159,11 @@ const mapDispatchToProps = { setCoords, updateElement };
 //const mapStateToProps = (state) => ({ products: state.products.data });
 
 const decSignForm = {
-    fontSize: "15px",
+    fontSize: "25px",
     marginTop: "20px",
     padding: "15px 15px 150px 15px",
     marginLeft: "auto",
+    textAlign: "center",
     marginRight: "auto",
     width: "40%"
 }

@@ -39,7 +39,7 @@ const WelcomePage = ({ fetchProd, setOneProduct, showActiveBids, products = [], 
         accessor: 'ItemID',
      },
         { Cell: ({original: data}) => {
-                console.log(data);
+              //  console.log(data);
             return (
                 //<Button  onClick = {() => handleClick(inputText)} variant="outline-info">Search</Button>
                 <Button onClick={() => handleClick(data)} variant = "info">Details</Button>
