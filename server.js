@@ -103,7 +103,7 @@ app.post("/api/datas/addBid", (req , res) => {
         Ends: req.body.Ends,
         Seller: req.body.Seller,
         Description: req.body.Description
-    })
+    });
 
     newBid.save().then((r) => res.json(r));
 });
@@ -137,11 +137,25 @@ app.put("/api/datas/update/:id" , (req , res) => {
         Amount: Amount,
         Time:   Time
     }}})
-    database.collection("datas").findOneAndUpdate({ItemID: req.params.id},{ $inc: { Number_of_Bids : 1 }})
+    let current = 0;
+    let newCur = 0;
+
+    database.collection("datas").findOneAndUpdate({ItemID: req.params.id} , { $inc: { Number_of_Bids : 1 }});
+    database.collection("datas").findOne({ItemID: req.params.id}).then((r) => {
+      current = r.Currently
+    });
+
+    setTimeout(() => {
+        if (Amount > current){
+            database.collection("datas").findOneAndUpdate({ItemID: req.params.id} , {$set : {Currently: Amount}})
+        }
+        console.log(current)
+    }, 1000);
+
 
 });
 
-
+//db.inventory.update( { "carrier.fee": { $gt: 2 } }, { $set: { price: 9.99 } } )
 
 const port = process.env.PORT || 6000; // process.env.port is Heroku's port if you choose to deploy the app there
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));

@@ -41,7 +41,7 @@ export const fetchAllUsers = () => dispatch => {
 };
 
 // Login - get user token
-export const loginUser = (payload) => dispatch => {
+export const loginUser = (payload)  => dispatch => {
     //dispatch(setUserInfo(payload.userData));
     let isAdmin = false;
 
@@ -50,7 +50,7 @@ export const loginUser = (payload) => dispatch => {
     if (username === "ange_admin" && password === "123456"){
         isAdmin = true;
     }
-    console.log(username)
+
     axios.get("/api/users/getUser/" + username).then(res => {
         console.log(res.data)
         dispatch(setCurrentUser(res.data));
@@ -58,8 +58,9 @@ export const loginUser = (payload) => dispatch => {
 
     // dispatch(setCurrentUser(payload.userData));
 
-    isAdmin ? axios.post("/api/users/login", payload.userData).then(res => payload.history.push("/admin"))
-        : axios.post("/api/users/login", payload.userData).then(res => payload.history.push("/welcomePage"));
+    isAdmin ? axios.post("/api/users/login", payload.userData).then(() => payload.history.push("/admin"))
+        : axios.post("/api/users/login", payload.userData).then(() => payload.history.push("/welcomePage"))
+
 
 };
             // Save to localStorage

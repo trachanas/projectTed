@@ -70,9 +70,9 @@ const formatBid =
 
 const formatBids = (item = []) => Array.isArray(item) ? item.map(formatBid) : [formatBid(item)];
 
-
 json.Items.Item.forEach((item) => {
-    //console.log(item)
+
+    i++;
 
     var longitude =  item.Location._attributes === undefined ? "0" : item.Location._attributes.Longitude;
     var latitude = item.Location._attributes === undefined ? "0" : item.Location._attributes.Latitude;
@@ -85,8 +85,7 @@ json.Items.Item.forEach((item) => {
     var firstBid = convertStringToNumber(item["First_Bid"]._text);
     var numberOfBids = convertStringToNumber(item["Number_of_Bids"]._text);
 
-    console.log(currently + " " + firstBid);
-	const { 
+    const {
 		_attributes: { ItemID },
         Name: { _text: Name },
         Category,
@@ -151,11 +150,7 @@ json.Items.Item.forEach((item) => {
   })
 
 
-  productData.save(function(err){
-    if (err) throw err;
-  })
-i++;
-
+  productData.save();
 });
 
 console.log("Data saved " + i)

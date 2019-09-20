@@ -58,6 +58,7 @@ const Product = ({  item = {}, history, setCoords, user, updateElement  }) => {
         }
 
         updateElement(newBid);
+        history.push("/welcomePage");
     };
 
     const enabledButton = item.Longitude !== "0" && item.Latitude !== "0"
