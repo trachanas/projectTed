@@ -350,16 +350,16 @@ const decSignForm = {
     marginLeft: "auto",
     marginRight: "auto",
     width: "40%"
-}
+};
 
 const decPage = {
     borderBottom: "1px solid grey"
-}
+};
 
 const errorStyle = {
     fontFamily : "Manjari, sans-serif",
     color: "#ff0000"
-}
+};
 
 Register.propTypes = {
     registerUser: PropTypes.func.isRequired,

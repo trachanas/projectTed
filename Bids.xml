@@ -1,0 +1,127 @@
+<Items>
+    <Item ItemID="bb3a5fec-282e-4670-a18d-d497dd0df70e">
+        <Name>phone</Name>
+        <Category>phone</Category>
+        <Category>tel</Category>
+        <Currently>57</Currently>
+        <First_Bid>20</First_Bid>
+        <Buy_Price>30</Buy_Price>
+        <Number_of_Bids>1</Number_of_Bids>
+        <Bids>
+            <Bid>
+                <Bidder Rating="11" UserID="test_test">
+                    <Location>test</Location>
+                    <Country>Åland Islands</Country>
+                </Bidder>
+                <Time>2019-09-22T09:13:16.516Z</Time>
+                <Amount>57</Amount>
+            </Bid>
+        </Bids>
+        <Location Latitude="33.43144133557529" Longitude="56.42578125000001">Athens</Location>
+        <Country>Andorra</Country>
+        <Started>2019-09-22T09:12:54.760Z</Started>
+        <Ends>2019-09-26T09:12:54.760Z</Ends>
+        <Seller UserID="test_test" Rating="11"/>
+        <Description>s</Description>
+    </Item>
+    <Item ItemID="e986d510-a46a-4965-ad8b-72b92a38d5eb">
+        <Name>Books</Name>
+        <Category>Books</Category>
+        <Category>Reading</Category>
+        <Category>Political</Category>
+        <Currently>55</Currently>
+        <First_Bid>20</First_Bid>
+        <Buy_Price>50</Buy_Price>
+        <Number_of_Bids>1</Number_of_Bids>
+        <Bids>
+            <Bid>
+                <Bidder Rating="11" UserID="test_test">
+                    <Location>test</Location>
+                    <Country>Åland Islands</Country>
+                </Bidder>
+                <Time>2019-09-22T08:59:47.384Z</Time>
+                <Amount>55</Amount>
+            </Bid>
+        </Bids>
+        <Location Latitude="38.24316867740746" Longitude="21.763315200805664">Patra, Achaia</Location>
+        <Country>Greece</Country>
+        <Started>2019-09-22T08:59:24.843Z</Started>
+        <Ends>2019-09-26T08:59:24.843Z</Ends>
+        <Seller UserID="test_test" Rating="11"/>
+        <Description>These are my favourite books </Description>
+    </Item>
+    <Item ItemID="2a38e799-9a9f-4d53-8ffb-8df4e0aa5af8">
+        <Name>Books</Name>
+        <Category>Books</Category>
+        <Category>Reading</Category>
+        <Category>Political</Category>
+        <Currently>20</Currently>
+        <First_Bid>20</First_Bid>
+        <Buy_Price>50</Buy_Price>
+        <Number_of_Bids>0</Number_of_Bids>
+        <Bids/>
+        <Location Latitude="0" Longitude="0">Patra, Achaia</Location>
+        <Country>
+        </Country>
+        <Started>2019-09-22T08:58:40.531Z</Started>
+        <Ends>2019-09-27T08:58:40.531Z</Ends>
+        <Seller UserID="test_test" Rating="11"/>
+        <Description>
+        </Description>
+    </Item>
+    <Item ItemID="9a9786b3-52b8-469b-bd5e-76908cd7972f">
+        <Name>Jeans</Name>
+        <Category>Jeans</Category>
+        <Currently>100</Currently>
+        <First_Bid>20</First_Bid>
+        <Buy_Price>50</Buy_Price>
+        <Number_of_Bids>1</Number_of_Bids>
+        <Bids/>
+        <Location Latitude="37.993321784846124" Longitude="23.662931965665823">Athens</Location>
+        <Country>Swaziland</Country>
+        <Started>2019-09-21T12:19:23.527Z</Started>
+        <Ends>2019-09-26T12:19:23.527Z</Ends>
+        <Seller UserID="giorgos" Rating="307"/>
+        <Description>This is my pair of jeans</Description>
+    </Item>
+    <Item ItemID="496fe69c-cf61-4923-97f3-29e2a6db3458">
+        <Name>Shoes</Name>
+        <Category>Shoes</Category>
+        <Currently>50</Currently>
+        <First_Bid>10</First_Bid>
+        <Buy_Price>25</Buy_Price>
+        <Number_of_Bids>2</Number_of_Bids>
+        <Bids>
+            <Bid>
+                <Bidder Rating="11" UserID="test_test">
+                    <Location>test</Location>
+                    <Country>Åland Islands</Country>
+                </Bidder>
+                <Time>2019-09-21T19:44:24.846Z</Time>
+                <Amount>12345</Amount>
+            </Bid>
+            <Bid>
+                <Bidder Rating="11" UserID="test_test">
+                    <Location>test</Location>
+                    <Country>Åland Islands</Country>
+                </Bidder>
+                <Time>2019-09-21T19:49:56.434Z</Time>
+                <Amount>50</Amount>
+            </Bid>
+            <Bid>
+                <Bidder Rating="11" UserID="test_test">
+                    <Location>test</Location>
+                    <Country>Åland Islands</Country>
+                </Bidder>
+                <Time>2019-09-21T19:51:26.979Z</Time>
+                <Amount>100</Amount>
+            </Bid>
+        </Bids>
+        <Location Latitude="40.659545496109885" Longitude="22.983586464968397">Salonika</Location>
+        <Country>Greece</Country>
+        <Started>2019-09-21T12:17:12.851Z</Started>
+        <Ends>2019-09-29T12:17:12.851Z</Ends>
+        <Seller UserID="test_test" Rating="11"/>
+        <Description>This are my shoes</Description>
+    </Item>
+</Items>

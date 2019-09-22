@@ -1,0 +1,178 @@
+[
+  {
+    "Category": [
+      "Shoes"
+    ],
+    "Bids": [
+      {
+        "Location": "test",
+        "Country": "Åland Islands",
+        "Rating": "11",
+        "UserID": "test_test",
+        "Amount": "12345",
+        "Time": "2019-09-21T19:44:24.846Z"
+      },
+      {
+        "Location": "test",
+        "Country": "Åland Islands",
+        "Rating": "11",
+        "UserID": "test_test",
+        "Amount": "50",
+        "Time": "2019-09-21T19:49:56.434Z"
+      },
+      {
+        "Location": "test",
+        "Country": "Åland Islands",
+        "Rating": "11",
+        "UserID": "test_test",
+        "Amount": "100",
+        "Time": "2019-09-21T19:51:26.979Z"
+      }
+    ],
+    "Seller": [
+      {
+        "UserID": "test_test",
+        "Rating": "11"
+      }
+    ],
+    "_id": "5d8614c85b25372aaf9b3e52",
+    "ItemID": "496fe69c-cf61-4923-97f3-29e2a6db3458",
+    "Name": "Shoes",
+    "Currently": 50,
+    "First_Bid": 10,
+    "Buy_Price": 25,
+    "Number_of_Bids": 2,
+    "Location": "Salonika",
+    "Latitude": "40.659545496109885",
+    "Longitude": "22.983586464968397",
+    "Country": "Greece",
+    "Started": "2019-09-21T12:17:12.851Z",
+    "Ends": "2019-09-29T12:17:12.851Z",
+    "Description": "This are my shoes",
+    "__v": 0
+  },
+  {
+    "Category": [
+      "Jeans"
+    ],
+    "Bids": [],
+    "Seller": [
+      {
+        "UserID": "giorgos",
+        "Rating": "307"
+      }
+    ],
+    "_id": "5d86154ba1b3fd2aba9aa5b0",
+    "ItemID": "9a9786b3-52b8-469b-bd5e-76908cd7972f",
+    "Name": "Jeans",
+    "Currently": 100,
+    "First_Bid": 20,
+    "Buy_Price": 50,
+    "Number_of_Bids": 1,
+    "Location": "Athens",
+    "Latitude": "37.993321784846124",
+    "Longitude": "23.662931965665823",
+    "Country": "Swaziland",
+    "Started": "2019-09-21T12:19:23.527Z",
+    "Ends": "2019-09-26T12:19:23.527Z",
+    "Description": "This is my pair of jeans",
+    "__v": 0
+  },
+  {
+    "Category": [
+      "Books, Reading, Political"
+    ],
+    "Bids": [],
+    "Seller": [
+      {
+        "UserID": "test_test",
+        "Rating": "11"
+      }
+    ],
+    "_id": "5d8737c0b47c2936504263aa",
+    "ItemID": "2a38e799-9a9f-4d53-8ffb-8df4e0aa5af8",
+    "Name": "Books",
+    "Currently": 20,
+    "First_Bid": 20,
+    "Buy_Price": 50,
+    "Number_of_Bids": 0,
+    "Location": "Patra, Achaia",
+    "Country": "",
+    "Started": "2019-09-22T08:58:40.531Z",
+    "Ends": "2019-09-27T08:58:40.531Z",
+    "Description": "",
+    "__v": 0
+  },
+  {
+    "Category": [
+      "Books, Reading, Political"
+    ],
+    "Bids": [
+      {
+        "Location": "test",
+        "Country": "Åland Islands",
+        "Rating": "11",
+        "UserID": "test_test",
+        "Amount": "55",
+        "Time": "2019-09-22T08:59:47.384Z"
+      }
+    ],
+    "Seller": [
+      {
+        "UserID": "test_test",
+        "Rating": "11"
+      }
+    ],
+    "_id": "5d8737ecb47c2936504263ab",
+    "ItemID": "e986d510-a46a-4965-ad8b-72b92a38d5eb",
+    "Name": "Books",
+    "Currently": 55,
+    "First_Bid": 20,
+    "Buy_Price": 50,
+    "Number_of_Bids": 1,
+    "Location": "Patra, Achaia",
+    "Latitude": "38.24316867740746",
+    "Longitude": "21.763315200805664",
+    "Country": "Greece",
+    "Started": "2019-09-22T08:59:24.843Z",
+    "Ends": "2019-09-26T08:59:24.843Z",
+    "Description": "These are my favourite books ",
+    "__v": 0
+  },
+  {
+    "Category": [
+      "phone, tel"
+    ],
+    "Bids": [
+      {
+        "Location": "test",
+        "Country": "Åland Islands",
+        "Rating": "11",
+        "UserID": "test_test",
+        "Amount": "57",
+        "Time": "2019-09-22T09:13:16.516Z"
+      }
+    ],
+    "Seller": [
+      {
+        "UserID": "test_test",
+        "Rating": "11"
+      }
+    ],
+    "_id": "5d873b1681c43536940f17c0",
+    "ItemID": "bb3a5fec-282e-4670-a18d-d497dd0df70e",
+    "Name": "phone",
+    "Currently": 57,
+    "First_Bid": 20,
+    "Buy_Price": 30,
+    "Number_of_Bids": 1,
+    "Location": "Athens",
+    "Latitude": "33.43144133557529",
+    "Longitude": "56.42578125000001",
+    "Country": "Andorra",
+    "Started": "2019-09-22T09:12:54.760Z",
+    "Ends": "2019-09-26T09:12:54.760Z",
+    "Description": "s",
+    "__v": 0
+  }
+]

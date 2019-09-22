@@ -289,12 +289,12 @@ const decSignForm = {
 const errorStyle = {
     fontFamily : "Manjari, sans-serif",
     color: "#ff0000"
-}
+};
 
 
 const decPage = {
     borderBottom: "1px solid grey"
-}
+};
 
 const mapStateToProps = state => ({
     user: state.auth.user,
@@ -307,4 +307,5 @@ AddBid.propTypes = {
     addBid: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired
 };
+
 export default connect(mapStateToProps, {addBid}) (withRouter(AddBid));

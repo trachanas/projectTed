@@ -4,8 +4,17 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 
 import {fetchAllUsers , deleteOneUser, acceptOneUser} from '../actions/authActions';
+import {exportToXML, exportToJSON} from "../actions/product-actions";
 
-const Admin = ({ users, fetchAllUsers, deleteOne, acceptOne }) => {
+const Admin = ({ users, fetchAllUsers, deleteOne, acceptOne, exportToXML, exportToJSON }) => {
+
+    const exportBidsToJSON = () => {
+        exportToJSON();
+    };
+
+    const exportBidsToXML = () => {
+        exportToXML();
+    };
 
     const columns = [{
         Header: 'Username',
@@ -23,7 +32,7 @@ const Admin = ({ users, fetchAllUsers, deleteOne, acceptOne }) => {
         // Header: 'City',
         // accessor: 'city'
     }, {
-        Cell: ({original:{_id}}) => {    
+        Cell: ({original:{_id}}) => {
             return (<>
                 <button onClick = {() => acceptOne(_id)}>Accept User</button>
                 <button onClick = {() => deleteOne(_id)}>Delete User</button>
@@ -40,6 +49,8 @@ const Admin = ({ users, fetchAllUsers, deleteOne, acceptOne }) => {
     return (
         <>
             <h1>HELLO ADMIN</h1>
+            <button onClick={() => exportBidsToJSON()}>Export to JSON</button>
+            <button onClick={() => exportBidsToXML()}>Export to XML</button>
             <ReactTable
                 data={users}
                 columns={columns}
@@ -52,4 +63,6 @@ const mapStateToProps = state => ({
     users: state.auth.users,
 });
 
-export default connect(mapStateToProps,{ fetchAllUsers, deleteOne: deleteOneUser, acceptOne: acceptOneUser })(Admin);
+
+
+export default connect(mapStateToProps,{ fetchAllUsers, deleteOne: deleteOneUser, acceptOne: acceptOneUser, exportToXML, exportToJSON })(Admin);

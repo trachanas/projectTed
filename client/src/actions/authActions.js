@@ -21,18 +21,20 @@ export const registerUser = (userData, history) => dispatch => {
 export const setUserInfo = (user) => ({
     type: SET_USER_INFO,
     payload: user
-})
+});
 
-export const acceptOneUser = (id) => {
-  axios.put("/api/users/accept/" + id);
-}
+export const acceptOneUser = (id) => dispatch => {
+  axios.put("/api/users/accept/" + id).then(() => {
+      fetchAllUsers()(dispatch);
+  });
+};
 
 export const deleteOneUser = (id) => dispatch => {
 
   axios.delete("/api/users/delete/" +  id).then(() => {
     fetchAllUsers()(dispatch);
   });
-}
+};
 
 export const fetchAllUsers = () => dispatch => {
     axios.get("/api/users/all").then((res) => {
