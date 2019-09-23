@@ -1,5 +1,5 @@
 import axios from "axios";
-import {SET_PRODUCTS, SET_ONE_PRODUCT, SHOW_ACTIVE_BIDS, SET_COORDS, GET_ERRORS} from "./types";
+import {SET_PRODUCTS, SET_ONE_PRODUCT, SHOW_ACTIVE_BIDS, SET_COORDS, GET_ERRORS, SET_RECOMMENDED} from "./types";
 
 export const setProducts = (payload) => ({ type: SET_PRODUCTS, payload });
 
@@ -26,11 +26,12 @@ export const exportToJSON = () => dispatch   => {
 export const showRecommended = (id) => dispatch => {
     let id_1 = id === undefined ? 1 : id;
     console.log(id_1);
-    axios.get("/api/bids/recommend/" + id_1).then((data) => {
-        console.log("11111 " + JSON.stringify(data));
+    axios.get("/api/bids/recommend/" + id_1).then(res => {
+        dispatch(setRec(res.data));
     });
 };
 
+export const setRec = (payload) => ({ type: SET_RECOMMENDED, payload});
 
 export const setCoords = payload => ({ type: SET_COORDS, payload });
 

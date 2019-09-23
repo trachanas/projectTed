@@ -412,57 +412,106 @@ app.put("/api/datas/update/:id" , (req , res) => {
 
 
 
-app.get("/api/bids/recommend/:id", (req, res) => {
+// app.get("/api/bids/recommend/:id", (req, res) => {
+//
+//     let sorted;
+//     let rec;
+//     let recID;
+//     let mostViewed;
+//     let retValue = [];
+//
+//     History.find({UserID:req.params.id}).then(data => {
+//         //console.log(JSON.stringify(data));
+//         data.forEach(r => {
+//             //console.log(r.Products[1]);
+//             sorted = r.Products.sort((a, b) => (a.timesViewed > b.timesViewed) ? -1 : 1);
+//         });
+//         rec = sorted.slice(0 , 1);
+//         rec.forEach(r => {
+//             recID = r.productID;
+//         });
+//     }).then(()  => {
+//
+//         Products.find({_id : recID}).then((res) => {
+//             mostViewed = (res);
+//
+//             Products.find().then((r) => {
+//                 let documents = r.map(v => JSON.stringify(v));
+//
+//                 const config = {
+//                     storage: 'memory',
+//                     shingleSize: 5,
+//                     numberOfHashFunctions: 120
+//                 };
+//                 const lsh = Lsh.getInstance(config);
+//
+//                 for (let i = 0; i < 10; i += 1) {
+//                     lsh.addDocument(i, documents[i])
+//                 }
+//
+//                 const q = {
+//                     text: JSON.stringify(mostViewed),
+//                 };
+//
+//                 const result = lsh.query(q)
+//
+//                 result.slice(0,1).map(i => {
+//                     retValue.push((documents[i]));
+//                 });
+//                 //console.log(retValue);
+//                 return retValue;
+//             })
+//         })
+//     })
+// });
 
-    let sorted;
-    let rec;
-    let recID;
-    let mostViewed;
-    let retValue = [];
+app.get("/api/bids/recommend/:id", async (req, res) => {
 
-    History.find({UserID:req.params.id}).then(data => {
-        //console.log(JSON.stringify(data));
-        data.forEach(r => {
-            //console.log(r.Products[1]);
-            sorted = r.Products.sort((a, b) => (a.timesViewed > b.timesViewed) ? -1 : 1);
+    const LIMIT = 10;
+    const val = [];
+    const config = {
+        storage: 'memory',
+        shingleSize: 5,
+        numberOfHashFunctions: 120
+    };
+
+    const lsh = Lsh.getInstance(config);
+
+    const allProducts = await Products.find();
+
+    const allProductsStringified = allProducts.map((v) => JSON.stringify(v));
+
+    const data = await History.findOne({ UserID:req.params.id });
+
+    const top10MostViewed = data.Products.sort((a, b) => (a.timesViewed > b.timesViewed) ? -1 : 1).slice(0, 10);
+
+    const retValue = [];
+
+    for (const item of top10MostViewed) {
+
+        const product = await Products.findOne({ _id: item.productID });
+
+        allProductsStringified.slice(0, LIMIT).forEach((v, idx) => {
+            lsh.addDocument(idx, v);
         });
-        rec = sorted.slice(0 , 1);
-        rec.forEach(r => {
-            recID = r.productID;
-        });
-    }).then(()  => {
 
-        Products.find({_id : recID}).then((res) => {
-            mostViewed = (res);
+        const query = {
+            text: JSON.stringify(product),
+        };
 
-            Products.find().then((r) => {
-                let documents = r.map(v => JSON.stringify(v));
+        const [result] = lsh.query(query);
 
-                const config = {
-                    storage: 'memory',
-                    shingleSize: 5,
-                    numberOfHashFunctions: 120
-                };
-                const lsh = Lsh.getInstance(config);
+        val.push(result);
 
-                for (let i = 0; i < 10; i += 1) {
-                    lsh.addDocument(i, documents[i])
-                }
+        //retValue.push(allProducts[result]);
+    }
 
-                const q = {
-                    text: JSON.stringify(mostViewed),
-                };
-
-                const result = lsh.query(q)
-
-                result.slice(0,1).map(i => {
-                    retValue.push((documents[i]));
-                });
-                //console.log(retValue);
-                return retValue;
-            })
-        })
-    })
+    let dist = [...new Set(val)];
+    console.log(dist);
+    for (let i = 0; i < dist.length; i++){
+        retValue.push(allProducts[i]);
+    }
+    res.json(retValue);
 });
 
 // Products.find().then((res) => {
