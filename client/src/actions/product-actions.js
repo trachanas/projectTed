@@ -1,6 +1,5 @@
 import axios from "axios";
 import {SET_PRODUCTS, SET_ONE_PRODUCT, SHOW_ACTIVE_BIDS, SET_COORDS, GET_ERRORS} from "./types";
-var fs = require('browserify-fs');
 
 export const setProducts = (payload) => ({ type: SET_PRODUCTS, payload });
 
@@ -11,19 +10,6 @@ export const fetchProducts = () => (dispatch) => {
 };
 
 
-function jsonReader(filePath, cb) {
-    fs.readFile(filePath, (err, fileData) => {
-        if (err) {
-            return cb && cb(err)
-        }
-        try {
-            const object = JSON.parse(fileData)
-            return cb && cb(null, object)
-        } catch(err) {
-            return cb && cb(err)
-        }
-    })
-}
 export const exportToXML = () => (dispatch) => {
     axios.get("/api/bids/alltoXML").then(() => {
         console.log("XML file OK!");
@@ -35,22 +21,21 @@ export const exportToJSON = () => dispatch   => {
         console.log("JSON file OK!");
     });
 };
+//app.get("/api/bids/recommend", (req, res) => {
+
+export const showRecommended = (id) => dispatch => {
+    let id_1 = id === undefined ? 1 : id;
+    console.log(id_1);
+    axios.get("/api/bids/recommend/" + id_1).then((data) => {
+        console.log("11111 " + JSON.stringify(data));
+    });
+};
 
 
-
-//
-// // Data which will write in a file.
-// let data = "Learning how to write in a file."
-//
-// // Write data in 'Output.txt' .
-// fs.writeFile('Output.txt', data, (err) => {
-//
-    // In case of a error throw err.
-
-    export const setCoords = payload => ({ type: SET_COORDS, payload });
+export const setCoords = payload => ({ type: SET_COORDS, payload });
 
 export const addToHistory = (item) => {
-    axios.post("/api/history/add", item);
+    axios.post("/api/history/add", item).then();
 };
 
 export const addBid = (newBid , history) => dispatch => {

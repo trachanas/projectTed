@@ -9,7 +9,8 @@ const Bids = require("./models/Bids");
 const Users = require("./models/User");
 const History = require("./models/History");
 const validateAddBid = require("./validation/addBid");
-const fs = require('fs')
+const fs = require('fs');
+const Lsh = require('@agtabesh/lsh')
 var XMLWriter = require('xml-writer');
 
 
@@ -45,7 +46,7 @@ app.use("/api/users", users);
 app.use("/api/datas", datas);
 
 app.get("/api/products/all", (req, res) => {
-  
+
   Products.aggregate([{ $limit: 2000 }]).then((data) => {
     res.json( data );
   });
@@ -53,29 +54,59 @@ app.get("/api/products/all", (req, res) => {
 
 const buildTerm = (term) => new RegExp(`\\.*${term}\\.*`);
 
-// app.post("/api/history/add", (req , res) =>
-//     History.findOne({UserID: req.body.UserID}).then((res) => {
-//       if (!res){
-//
-//
-//       const node = new History({
-//         UserID: req.body.UserID,
-//         Products: [{productID: req.body.productID, timesViewed : 1}]
-//       })
-//       node.save();
-//       //  History.insert({UserID: req.body.UserID, Products: [{productID: req.body.productID, timesViewed : 1}]})
-//       }else{
-//         History.updateOne({UserID: req.body.UserID} , { "$set": { "Products.$.productID": req.body.productID }}, {upsert : true})
-//       }
-//     })
-// );
+app.post("/api/history/add", (req , res) =>
+    History.findOne({ UserID: req.body.UserID }).then((res) => {
 
+        if (!res){
+
+          const node = new History({
+            UserID: req.body.UserID,
+            Products: [{productID: req.body.productID, timesViewed : 1}]
+          });
+
+          node.save();
+      } else {
+
+          History.findOne({ UserID: req.body.UserID }).then((result) => {
+
+              const found = result.Products.find(({ productID }) => productID === req.body.productID);
+
+              let newP;
+
+              if (found) {
+                  newP = result.Products.reduce((acc, val) => {
+
+                      if (val.productID === req.body.productID) return acc.concat({
+                          ...val,
+                          timesViewed: val.timesViewed + 1
+                      });
+
+                      return acc.concat(val);
+                  }, []);
+              }
+
+              else newP = result.Products.concat({ productID: req.body.productID, timesViewed: 1 });
+              //console.log(newP[0].timesViewed);
+
+              History.findOneAndUpdate(
+                  { UserID: req.body.UserID },
+                  { $set: { "Products": newP } },
+                  { useFindAndModify: false },
+              ).then((res) => {
+                  //console.log(res);
+              });
+          });
+      }
+    })
+);
+
+//    database.collection("datas").findOneAndUpdate({ItemID: req.params.id} , { $inc: { Number_of_Bids : 1 }});
 app.post("/api/datas/search", (req , res) => {
 
-  const query = 
+  const query =
     Object
       .keys(req.body)
-      .reduce((acc, key) => 
+      .reduce((acc, key) =>
         ({ ...acc, [key]: buildTerm(req.body[key])}),
         {});
 
@@ -257,7 +288,6 @@ app.get("/api/bids/alltoXML", (req, res) => {
                 console.log('Successfully wrote file')
             }
         });
-      //  console.log(formattedXml);
     });
 });
 
@@ -354,7 +384,7 @@ app.put("/api/datas/update/:id" , (req , res) => {
 
     database.collection("datas").findOneAndUpdate({ItemID: req.params.id} , { $inc: { Number_of_Bids : 1 }});
     database.collection("datas").findOne({ItemID: req.params.id}).then((r) => {
-        current = r.Currently
+        current = r.Currently;
         res.json(r);
     });
 
@@ -379,6 +409,95 @@ app.put("/api/datas/update/:id" , (req , res) => {
     }, 1000);
 
 });
+
+
+
+app.get("/api/bids/recommend/:id", (req, res) => {
+
+    let sorted;
+    let rec;
+    let recID;
+    let mostViewed;
+    let retValue = [];
+
+    History.find({UserID:req.params.id}).then(data => {
+        //console.log(JSON.stringify(data));
+        data.forEach(r => {
+            //console.log(r.Products[1]);
+            sorted = r.Products.sort((a, b) => (a.timesViewed > b.timesViewed) ? -1 : 1);
+        });
+        rec = sorted.slice(0 , 1);
+        rec.forEach(r => {
+            recID = r.productID;
+        });
+    }).then(()  => {
+
+        Products.find({_id : recID}).then((res) => {
+            mostViewed = (res);
+
+            Products.find().then((r) => {
+                let documents = r.map(v => JSON.stringify(v));
+
+                const config = {
+                    storage: 'memory',
+                    shingleSize: 5,
+                    numberOfHashFunctions: 120
+                };
+                const lsh = Lsh.getInstance(config);
+
+                for (let i = 0; i < 10; i += 1) {
+                    lsh.addDocument(i, documents[i])
+                }
+
+                const q = {
+                    text: JSON.stringify(mostViewed),
+                };
+
+                const result = lsh.query(q)
+
+                result.slice(0,1).map(i => {
+                    retValue.push((documents[i]));
+                });
+                //console.log(retValue);
+                return retValue;
+            })
+        })
+    })
+});
+
+// Products.find().then((res) => {
+//     let documents = res.map(v => JSON.stringify(v));
+//     documents.forEach(s =>{
+//         console.log(s);
+//         console.log("\n\n\n\n\n\n\n");
+//     })
+//     const config = {
+//         storage: 'memory',
+//         shingleSize: 5,
+//         numberOfHashFunctions: 120
+//     };
+//
+//     const lsh = Lsh.getInstance(config);
+//
+//     for (let i = 0; i < 10; i += 1) {
+//         lsh.addDocument(i, documents[i])
+//     }
+//
+//     const q = {
+//         text: documents[0],
+//     };
+//
+//     //const result = lsh.query(q)
+//     console.log(result);
+//
+//     result.slice(0,5).map(v => {
+//         console.log(JSON.parse(documents[v]));
+//         }
+//     );
+//
+//     // console.log(JSON.parse(documents[0]));
+//     // console.log(JSON.parse(documents[6]));
+// });
 
 
 

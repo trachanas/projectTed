@@ -69,7 +69,7 @@ const WelcomePage = ({ fetchProd, setOneProduct, showActiveBids, products = [], 
 };
 
 
-const mapStateToProps = (state) => ({ products: state.products.data, UserID: state.auth.user.id  });
+const mapStateToProps = (state) => ({ products: state.products.data, UserID: state.auth.user._id  });
 
 const mapDispatchToProps = { fetchProd: fetchProducts , setOneProduct, showActiveBids, addToHistory };
 //const mapDispatchToProps = (dispatch) => ({ ac: (asd) => dispatch(fetchProducts(asd)) }) //{ fetchProd: fetchProducts , setOneProduct };
