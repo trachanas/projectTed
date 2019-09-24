@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, BrowserRouter} from 'react-router-dom'
 import NavigationBar from './components/layout/NavigationBar.js'
 import Login from './components/Login.js'
 import Register from './components/Register.js'
@@ -12,6 +12,7 @@ import RequestWaiting from './components/RequestWaiting.js'
 import AdvancedSearch from './components/AdvancedSearch.js'
 import SearchResults from './components/SearchResults.js'
 import Logout from "./components/Logout";
+import RecommendedProducts from "./components/RecommendedProducts";
 import ErrorPage from './components/ErrorPage.js'
 
 
@@ -33,8 +34,9 @@ class App extends Component {
       <Provider store = {store}>
         <React.Fragment>
         <NavigationBar />
+        <BrowserRouter>
           <Switch>
-            <Route exact path = "/welcomePage" component = {WelcomePage}/>
+            <Route exact path = "/" component = {WelcomePage}/>
             <Route exact path = "/login" component = {Login}/>
             <Route exact path = "/register" component = {Register}/>
             <Route exact path = "/admin" component = {Admin}/>
@@ -46,9 +48,10 @@ class App extends Component {
             <Route exact path = "/advancedSearch" component = {AdvancedSearch} />
             <Route exact path = "/searchResults" component = {SearchResults} />
             <Route exact path = "/logout" component={Logout} />
-            <Route component = {ErrorPage} />
+            <Route exaxt path = "/recommend" component = {RecommendedProducts} />
+            <Route path = "*" component = {ErrorPage} />
           </Switch>
-
+        </BrowserRouter>
         {/* <Footer className = "footer">
           <p className="footer-copyright mb-0">
             &copy; {new Date().getFullYear()} Copyright

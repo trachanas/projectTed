@@ -20,8 +20,7 @@ const WelcomePage = ({ fetchProd, setOneProduct, showActiveBids, products = [], 
 
     var myMoment  = moment(Date());
 
-    let activeBids = []
-
+    let activeBids = [];
 
     products.forEach((product) => {
         if (myMoment < moment(product.Ends) ){

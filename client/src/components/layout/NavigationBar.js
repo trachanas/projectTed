@@ -1,13 +1,10 @@
-import React, {useState}  from 'react'
+import React, { useState }  from 'react'
 import "bootstrap/dist/css/bootstrap.min.css"
 import '../../App.css'
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import {  showActiveBids, searchText, showRecommended } from "../../actions/product-actions";
 import {  setUserInfo, setCurrentUser } from "../../actions/authActions";
-
-
 import { Navbar, Nav, Form, Button,  Dropdown } from 'react-bootstrap'
 
 
@@ -32,6 +29,9 @@ const NavigationBar = ({  item = {}, history, searchText, showActiveBids , user,
 
     const showRec = () => {
         showRecommended(user._id);
+        setTimeout(() => {
+            history.push("./recommend");
+        }, 20000);
     };
 
     const setUser = (user) => {
