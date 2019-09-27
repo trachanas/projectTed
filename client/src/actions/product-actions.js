@@ -1,5 +1,5 @@
 import axios from "axios";
-import {SET_PRODUCTS, SET_ONE_PRODUCT, SHOW_ACTIVE_BIDS, SET_COORDS, GET_ERRORS, SET_RECOMMENDED} from "./types";
+import { SET_PRODUCTS, SET_ONE_PRODUCT, SHOW_ACTIVE_BIDS, SET_COORDS, GET_ERRORS, SET_RECOMMENDED, SHOW_MESSAGES} from "./types";
 
 export const setProducts = (payload) => ({ type: SET_PRODUCTS, payload });
 
@@ -9,6 +9,18 @@ export const fetchProducts = () => (dispatch) => {
     });
 };
 
+export const showMessages = (payload) => ({
+   type: SHOW_MESSAGES, payload
+});
+
+
+export const getMessages = (name) => dispatch => {
+    console.log(name.user.username);
+    axios.get("/api/messages/findMes/" + name.user.username).then((res) => {
+        console.log(res.data);
+        dispatch(showMessages(res.data));
+    })
+};
 
 export const exportToXML = () => (dispatch) => {
     axios.get("/api/bids/alltoXML").then(() => {
@@ -25,9 +37,17 @@ export const exportToJSON = () => dispatch   => {
 
 export const showRecommended = (id) => dispatch => {
     let id_1 = id === undefined ? 1 : id;
-    console.log(id_1);
+
     axios.get("/api/bids/recommend/" + id_1).then(res => {
         dispatch(setRec(res.data));
+    });
+};
+
+
+export const sendMessage = (mes) => dispatch => {
+    console.log(mes);
+    axios.post("/api/messages/send" , mes).then(res => {
+        console.log(res.data);
     });
 };
 

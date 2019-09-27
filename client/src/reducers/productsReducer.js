@@ -1,10 +1,18 @@
-import { SET_PRODUCTS, SET_ONE_PRODUCT,  SHOW_ACTIVE_BIDS, SET_COORDS,SET_RECOMMENDED } from "../actions/types";
+import {
+    SET_PRODUCTS,
+    SET_ONE_PRODUCT,
+    SHOW_ACTIVE_BIDS,
+    SET_COORDS,
+    SET_RECOMMENDED,
+    SHOW_MESSAGES
+} from "../actions/types";
 
 const initialState = {
     item: {},
     activeBids: {},
     coords: {},
-    recP: {}
+    recP: [],
+    myMes: []
 };
 
 export default function(state = initialState, action) {
@@ -44,6 +52,13 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 recP: action.payload,
+            };
+
+        case SHOW_MESSAGES:
+            console.log(action.payload)
+            return {
+                ...state,
+                myMes: action.payload
             };
         default:
         

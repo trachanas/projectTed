@@ -3,12 +3,12 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import '../../App.css'
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {  showActiveBids, searchText, showRecommended } from "../../actions/product-actions";
+import {  showActiveBids, searchText, showRecommended, showMessages, getMessages } from "../../actions/product-actions";
 import {  setUserInfo, setCurrentUser } from "../../actions/authActions";
 import { Navbar, Nav, Form, Button,  Dropdown } from 'react-bootstrap'
 
 
-const NavigationBar = ({  item = {}, history, searchText, showActiveBids , user, setCurrentUser , showRecommended}) => {
+const NavigationBar = ({  item = {}, history, searchText, showActiveBids , user, setCurrentUser , showRecommended, getMessages}) => {
   
     const showBids = (activeBids) => {
       showActiveBids(activeBids);
@@ -24,14 +24,20 @@ const NavigationBar = ({  item = {}, history, searchText, showActiveBids , user,
     };
 
     const handleClick = text => {
-        searchText({ Name: text});
+        searchText({ Name: text });
+    };
+
+    const showMes = () => {
+        getMessages({ user });
+        setTimeout(()=>{
+            history.push("/messages");
+
+        }, 2000)
     };
 
     const showRec = () => {
         showRecommended(user._id);
-        setTimeout(() => {
-            history.push("./recommend");
-        }, 20000);
+        history.push("/recommend");
     };
 
     const setUser = (user) => {
@@ -64,7 +70,7 @@ const NavigationBar = ({  item = {}, history, searchText, showActiveBids , user,
                   {user && <Dropdown.Item  onClick = {() => showBids(item)}>Active Bids</Dropdown.Item>}
                   <Dropdown.Item href = "/advancedSearch">Advanced Search</Dropdown.Item>
                   <Dropdown.Item onClick = {() => showRec()} >Recommended Products</Dropdown.Item>
-
+                    {user && <Dropdown.Item onClick = {() => showMes()}>My messages</Dropdown.Item>}
                     {/*<Dropdown.Item onClick = {() => exportBids()}>Export Bids to XML</Dropdown.Item>*/}
                 </Dropdown.Menu>
               </Dropdown>
@@ -79,7 +85,7 @@ const NavigationBar = ({  item = {}, history, searchText, showActiveBids , user,
     
 
 
-const mapDispatchToProps = { showActiveBids, searchText , setUserInfo, setCurrentUser, showRecommended};
+const mapDispatchToProps = { showActiveBids, searchText , setUserInfo, setCurrentUser, showRecommended, showMessages, getMessages};
 
 const mapStateToProps = state =>  ({item : state.products.activeBids, user: state.auth.user});
 

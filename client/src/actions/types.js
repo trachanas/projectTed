@@ -11,3 +11,4 @@ export const SET_USER_INFO = "SET_USER_INFO";
 export const SHOW_ACTIVE_BIDS = "SHOW_ACTIVE_BIDS";
 export const SET_COORDS = "SET_COORDS";
 export const SET_RECOMMENDED = "SET_RECOMMENDED";
+export const SHOW_MESSAGES = "SHOW_MESSAGES";

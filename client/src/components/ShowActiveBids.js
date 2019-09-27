@@ -7,7 +7,7 @@ import {  ListGroup } from 'react-bootstrap'
 
 
 const ShowActiveBids = ({  item = {} , setOneProduct, history }) => {
-    console.log(item)
+    console.log(item);
 
     const handleClick = (item) => {
         setOneProduct(item);
@@ -31,7 +31,8 @@ const ShowActiveBids = ({  item = {} , setOneProduct, history }) => {
 }
 
 
-const mapStateToProps = state =>  ({ item : state.products.activeBids })
+const mapStateToProps = state =>  ({ item : state.products.activeBids });
+
 const mapDispatchToProps = {setOneProduct};
 
 

@@ -8,9 +8,10 @@ const Products = require("./models/Products");
 const Bids = require("./models/Bids");
 const Users = require("./models/User");
 const History = require("./models/History");
+const Messages = require("./models/Message.jsx");
 const validateAddBid = require("./validation/addBid");
 const fs = require('fs');
-const Lsh = require('@agtabesh/lsh')
+const Lsh = require('@agtabesh/lsh');
 var XMLWriter = require('xml-writer');
 
 
@@ -356,6 +357,22 @@ app.get("/api/users/getUser/:user", (req , res) => {
     Users.findOne({username: req.params.user}).then(user => res.json(user))
 });
 
+app.post("/api/messages/send", (req, res) => {
+
+    const mes = new Messages({
+        message : req.body.mes,
+        sender: req.body.sender,
+        receiver: req.body.rec
+    });
+
+    mes.save().then(r => res.json(r));
+});
+
+app.get("/api/messages/findMes/:name", (req , res) => {
+    Messages.find({receiver: req.params.name}).then(message => {
+        res.json(message)
+    })
+});
 
 app.put("/api/datas/update/:id" , (req , res) => {
 
@@ -463,7 +480,67 @@ app.put("/api/datas/update/:id" , (req , res) => {
 //             })
 //         })
 //     })
-// });
+// }
+
+
+
+app.get("/api/bids/genrec", async (req, res) => {
+    const LIMIT = 10;
+    const val = [];
+    const config = {
+        storage: 'memory',
+        shingleSize: 5,
+        numberOfHashFunctions: 10
+    };
+
+
+    const lsh = Lsh.getInstance(config);
+
+    const allProducts = await Products.find();
+
+    const allProductsStringified = allProducts.map((v) => JSON.stringify(v));
+
+
+    const data = await History.find();
+    let a = [];
+    data.forEach(d => {
+        console.log(d.Products)
+        a.push(d.Products)
+    });
+    const top10MostViewed = a.sort((a, b) => (a.timesViewed > b.timesViewed) ? -1 : 1).slice(0, 10);
+
+    //console.log(top10MostViewed)
+
+    const retValue = [];
+
+    for (const item of top10MostViewed) {
+
+        const product = await Products.findOne({ _id: item.productID });
+
+        allProductsStringified.slice(0, LIMIT).forEach((v, idx) => {
+            lsh.addDocument(idx, v);
+        });
+
+
+        const query = {
+            text: JSON.stringify(product),
+        };
+
+        const [result] = lsh.query(query);
+
+        val.push(result);
+
+        //retValue.push(allProducts[result]);
+    }
+
+    let dist = [...new Set(val)];
+    console.log(dist);
+    for (let i = 0; i < dist.length; i++){
+        retValue.push(allProducts[i]);
+    }
+    res.json(retValue);
+
+});
 
 app.get("/api/bids/recommend/:id", async (req, res) => {
 
@@ -472,7 +549,7 @@ app.get("/api/bids/recommend/:id", async (req, res) => {
     const config = {
         storage: 'memory',
         shingleSize: 5,
-        numberOfHashFunctions: 120
+        numberOfHashFunctions: 10
     };
 
     const lsh = Lsh.getInstance(config);
@@ -481,7 +558,10 @@ app.get("/api/bids/recommend/:id", async (req, res) => {
 
     const allProductsStringified = allProducts.map((v) => JSON.stringify(v));
 
-    const data = await History.findOne({ UserID:req.params.id });
+    let id_1 = req.params.id === "1" ? "5d836e3d7a5c130c1c7f7ece" : req.params.id;
+
+
+    const data = await History.findOne({ UserID: id_1 });
 
     const top10MostViewed = data.Products.sort((a, b) => (a.timesViewed > b.timesViewed) ? -1 : 1).slice(0, 10);
 
@@ -502,8 +582,6 @@ app.get("/api/bids/recommend/:id", async (req, res) => {
         const [result] = lsh.query(query);
 
         val.push(result);
-
-        //retValue.push(allProducts[result]);
     }
 
     let dist = [...new Set(val)];

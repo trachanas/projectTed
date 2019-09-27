@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {Button} from "react-bootstrap";
-import ReactTable from "react-table";
 import {ListGroup} from "react-bootstrap";
 import {addToHistory, fetchProducts, setOneProduct, showActiveBids} from "../actions/product-actions";
 
@@ -10,10 +8,7 @@ class RecommendedProducts extends Component {
 
     render() {
         console.log(this.props.rec);
-        let ret = [];
-        this.props.rec.forEach((v) => {
-            ret.push(v)
-        });
+        let ret = this.props.rec;
 
         const handleClick = (item) => {
             //addToHistory({UserID, productID: item._id} );

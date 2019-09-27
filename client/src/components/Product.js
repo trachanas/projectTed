@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 import '../App.css';
 import {Button, Form, Accordion, Card, InputGroup} from 'react-bootstrap';
 import { Tab, Tabs } from 'react-bootstrap-tabs';
-import { setCoords , updateElement} from "../actions/product-actions";
+import { setCoords , updateElement , sendMessage} from "../actions/product-actions";
 
 
-const Product = ({  item = {}, history, setCoords, user, updateElement  }) => {
+const Product = ({  item = {}, history, setCoords, user, updateElement, sendMessage  }) => {
 
     var categories = [];
     var bids = [];
@@ -18,6 +18,17 @@ const Product = ({  item = {}, history, setCoords, user, updateElement  }) => {
     };
 
     const [amount, setValue] = useState("");
+
+    const [message, setMessage] = useState("");
+
+    const handleMessage = ({target: {value}}) => {
+        setMessage(value);
+    };
+
+    const sendMes = (mes, rec ,sender) => {
+        console.log(mes + " " + rec + " " + sender);
+        sendMessage({mes, rec, sender});
+    };
 
     const handleInput = ({target: {value}}) => {
         setValue(value);
@@ -55,7 +66,7 @@ const Product = ({  item = {}, history, setCoords, user, updateElement  }) => {
         const newBid = {
             Bid: Bid,
             ItemID: item.ItemID
-        }
+        };
 
         updateElement(newBid);
         history.push("/welcomePage");
@@ -80,7 +91,7 @@ const Product = ({  item = {}, history, setCoords, user, updateElement  }) => {
     if (bids.length === 0){
         bidLength = 0;
     }
-    console.log(item.ItemID);
+
     return (
         <div>
            <h1 className = "decTabs" > {item.Name} </h1>
@@ -105,7 +116,7 @@ const Product = ({  item = {}, history, setCoords, user, updateElement  }) => {
                     {user.username && <Accordion style = {decSignForm} defaultActiveKey="1">
                         <Card>
                             <Card.Header>
-                                <Accordion.Toggle as={Button} style = {{fontSize: "30px"}}variant="link" eventKey="0">
+                                <Accordion.Toggle as={Button} style = {{fontSize: "30px"}} variant="link" eventKey="0">
                                     Deposit Bid
                                 </Accordion.Toggle>
                             </Card.Header>
@@ -134,6 +145,45 @@ const Product = ({  item = {}, history, setCoords, user, updateElement  }) => {
                             </Accordion.Collapse>
                         </Card>
                     </Accordion>}
+                {/*    const [message, setMessage] = useState("");*/}
+
+                {/*    const handleMessage = ({target: {value}}) => {*/}
+                {/*    setMessage(value);*/}
+                {/*};*/}
+                    {user.username && <Accordion style = {decSignForm} defaultActiveKey="1">
+                        <Card>
+                            <Card.Header>
+                                <Accordion.Toggle as={Button} style = {{fontSize: "30px"}} variant="link" eventKey="0">
+                                    Send message to the seller
+                                </Accordion.Toggle>
+                            </Card.Header>
+                            <Accordion.Collapse eventKey="0">
+                                <Card.Body>
+                                    <Form>
+                                        <Form.Group>
+                                            <InputGroup>
+                                                <InputGroup.Prepend>
+                                                    <InputGroup.Text id="inputGroupPrepend">To User: @{seller.UserID} </InputGroup.Text>
+                                                </InputGroup.Prepend>
+
+                                            </InputGroup>
+                                            <Form.Control
+                                                name = "message"
+                                                value = {message}
+                                                onChange = {handleMessage}
+                                                id = "message"
+                                                type = "text"
+                                                placeholder = "I'm asking for your product..."
+                                            />
+                                        </Form.Group>
+                                    </Form>
+
+                                    <Button  onClick = {() => sendMes(message , seller.UserID, user.username)}>Send message</Button>
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                    </Accordion>}
+
                 </Tab>
 
                 <Tab label = "Description">{item.Description}</Tab>
@@ -147,13 +197,13 @@ const Product = ({  item = {}, history, setCoords, user, updateElement  }) => {
             </Tabs>
         </div>
     )
-}
+};
 
 const mapStateToProps = state =>  ({item : state.products.item,
                                     user : state.auth.user
-})
+});
 
-const mapDispatchToProps = { setCoords, updateElement };
+const mapDispatchToProps = { setCoords, updateElement, sendMessage };
 
 
 //const mapStateToProps = (state) => ({ products: state.products.data });
@@ -161,7 +211,7 @@ const mapDispatchToProps = { setCoords, updateElement };
 const decSignForm = {
     fontSize: "25px",
     marginTop: "20px",
-    padding: "15px 15px 150px 15px",
+    padding: "15px 15px 15px 15px",
     marginLeft: "auto",
     textAlign: "center",
     marginRight: "auto",

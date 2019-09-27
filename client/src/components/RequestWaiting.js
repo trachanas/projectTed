@@ -15,7 +15,7 @@ const RequestWaiting = ({history}) => {
             </div>
         )
         
-}
+};
 
 
 export default RequestWaiting;
